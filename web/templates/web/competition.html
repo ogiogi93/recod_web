@@ -1,0 +1,139 @@
+{% extends "sidebar/base_with_sidebar.html" %}
+{% load staticfiles %}
+{% block content %}
+    <div class="nk-main">
+
+    <!-- START: Breadcrumbs -->
+    <div class="nk-gap-1"></div>
+    <div class="container">
+        <ul class="nk-breadcrumbs">
+            <li><a href="index.html">Home</a></li>
+            <li>
+                <span class="fa fa-angle-right"></span>
+            </li>
+
+            <li>
+                <span>News</span>
+            </li>
+
+        </ul>
+    </div>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+
+    <div class="container">
+    <div class="row vertical-gap">
+    <div class="col-lg-8">
+
+        <!-- START: Tabs  -->
+        <div class="nk-tabs">
+            <!--
+        Additional Classes:
+            .nav-tabs-fill
+    -->
+            <ul class="nav nav-tabs nav-tabs-fill" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#tabs-1-1" role="tab" data-toggle="tab"> 開催予定の大会 </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#tabs-1-2" role="tab" data-toggle="tab">　過去の大会</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade show active" id="tabs-1-1">
+                    <div class="nk-gap"></div>
+
+                    <!-- START: Future Competition Tab -->
+                    <div class="nk-blog-post nk-blog-post-border-bottom">
+                        <a href="#" class="nk-post-img">
+                            <img src="{% static 'images/post-2-fw.jpg' %}" alt="">
+
+                            <span class="nk-post-categories">
+                                            <span class="bg-main-1">開催予定</span>
+                                        </span>
+
+                        </a>
+                        <div class="nk-gap-1"></div>
+                        <h2 class="nk-post-title h4"><a href="#">タイトルタイトルタイトル</a></h2>
+                        <div class="nk-post-date mt-10 mb-10">
+                            <span class="fa fa-calendar"></span> 2018/1/1
+                            <span class="fa fa-comments"></span> <a href="#">7 comments</a>
+                        </div>
+                        <div class="nk-post-text">
+                            <p>テキストテキストテキスト</p>
+                        </div>
+                    </div>
+                    <!-- START: Future Competition Tab -->
+                    <div class="nk-blog-post nk-blog-post-border-bottom">
+                        <a href="#" class="nk-post-img">
+                            <img src="{% static 'images/post-2-fw.jpg' %}" alt="">
+
+                            <span class="nk-post-categories">
+                                            <span class="bg-main-1">開催予定</span>
+                                        </span>
+
+                        </a>
+                        <div class="nk-gap-1"></div>
+                        <h2 class="nk-post-title h4"><a href="#">タイトルタイトルタイトル</a></h2>
+                        <div class="nk-post-date mt-10 mb-10">
+                            <span class="fa fa-calendar"></span> 2018/1/1
+                            <span class="fa fa-comments"></span> <a href="#">7 comments</a>
+                        </div>
+                        <div class="nk-post-text">
+                            <p>テキストテキストテキスト</p>
+                        </div>
+                    </div>
+                    <!-- END: Future Competition Tab -->
+                    <div class="nk-gap"></div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="tabs-1-2">
+                    <div class="nk-gap"></div>
+
+                    <!-- START: Old Competition Tab -->
+                    <div class="nk-blog-post nk-blog-post-border-bottom">
+                        <a href="#" class="nk-post-img">
+                            <img src="{% static 'images/post-1-fw.jpg' %}" alt="">
+
+                            <span class="nk-post-categories">
+                                            <span class="bg-main-4">過去</span>
+                                        </span>
+
+                        </a>
+                        <div class="nk-gap-1"></div>
+                        <h2 class="nk-post-title h4"><a href="#">タイトルタイトル</a></h2>
+                        <div class="nk-post-date mt-10 mb-10">
+                            <span class="fa fa-calendar"></span> 2017/12/01
+                            <span class="fa fa-comments"></span> <a href="#">4 comments</a>
+                        </div>
+                        <div class="nk-post-text">
+                            <p>テキストテキストテキスト</p>
+                        </div>
+                    </div>
+                    <div class="nk-blog-post nk-blog-post-border-bottom">
+                        <a href="#" class="nk-post-img">
+                            <img src="{% static 'images/post-1-fw.jpg' %}" alt="">
+
+                            <span class="nk-post-categories">
+                                            <span class="bg-main-4">過去</span>
+                                        </span>
+
+                        </a>
+                        <div class="nk-gap-1"></div>
+                        <h2 class="nk-post-title h4"><a href="#">タイトルタイトル</a></h2>
+                        <div class="nk-post-date mt-10 mb-10">
+                            <span class="fa fa-calendar"></span> 2017/12/01
+                            <span class="fa fa-comments"></span> <a href="#">4 comments</a>
+                        </div>
+                        <div class="nk-post-text">
+                            <p>テキストテキストテキスト</p>
+                        </div>
+                    </div>
+                    <!-- END: Old Competition Tab -->
+                    <div class="nk-gap"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Tabs -->
+{% endblock %}

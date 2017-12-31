@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+    <div class="nk-main">
+        <div class="container">
+            <div class="nk-gap-1"></div>
+            <div class="row justify-content-md-center">
+                <div class="col-md-3 col-md-offset-5">
+                    <h4 class="mb-0" style="text-align: center;"> ログイン </h4>
+                </div>
+            </div>
+            <div class="nk-gap-1"></div>
+            <div class="nk-gap-1"></div>
+            <div class="row justify-content-md-center">
+                <div class="nk-gap-1"></div>
+                <div class="col-md-3 col-md-offset-5">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                    <form action="{% url 'login' %}" class="nk-form text-white" method="post">
+                        {% csrf_token %}
+                        {{ login_form.as_p }}
+                        <input type="submit" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-block" value="ログイン">
+                    </form>
+                </div>
+            </div>
+            <div class="nk-gap-1"></div>
+        </div>
+    </div>
+{% endblock %}

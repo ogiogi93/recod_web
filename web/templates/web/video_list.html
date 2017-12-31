@@ -1,0 +1,46 @@
+{% extends "sidebar/base_with_sidebar.html" %}
+{% load staticfiles %}
+{% block content %}
+    <div class="nk-main">
+    <!-- START: Breadcrumbs -->
+    <div class="nk-gap-1"></div>
+    <div class="container">
+        <ul class="nk-breadcrumbs">
+            <li><a href="index.html">Home</a></li>
+            <li>
+                <span class="fa fa-angle-right"></span>
+            </li>
+            <li>
+                <span>過去の動画</span>
+            </li>
+        </ul>
+    </div>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+    <div class="container">
+    <div class="row vertical-gap">
+    <div class="col-lg-8">
+        <!-- START: Video Galleries-->
+        <div class="nk-gap-2"></div>
+        <h2 class="nk-decorated-h-2 h3">
+                        <span>
+                            <span class="text-main-1">大会</span> 動画</span>
+        </h2>
+        <div class="nk-gap"></div>
+        <div class="row vertical-gap">
+            <div class="col-md-6">
+                <h4>Call Of Duty WWII Competitive Gameplay CTF (FLAK TOWER)</h4>
+                <div class="nk-plain-video" data-video="https://www.youtube.com/watch?v=dGliDjjGanw"></div>
+            </div>
+            <div class="col-md-6">
+                <h4>CoD:WW2 CNA決勝 vsプロゲーマー『父の背中』【FirstactioN視点】</h4>
+                <div class="nk-plain-video" data-video="https://www.youtube.com/watch?v=ZL16OUUKIyo"></div>
+            </div>
+            <div class="col-md-6">
+                <h4>CNA優勝チームvs父ノ背中 PC版国内大会に向けてクラン戦</h4>
+                <div class="nk-plain-video" data-video="https://www.youtube.com/watch?v=7hLyiLSoxmU"></div>
+            </div>
+        </div>
+        <!-- END: Video Galleries -->
+    </div>
+{% endblock %}
