@@ -1,0 +1,317 @@
+{% extends "sidebar/base_with_sidebar.html" %}
+{% load staticfiles %}
+{% block content %}
+    <div class="nk-main">
+
+    <!-- START: Breadcrumbs -->
+    <div class="nk-gap-1"></div>
+    <div class="container">
+        <ul class="nk-breadcrumbs">
+
+
+            <li><a href="index.html">Home</a></li>
+
+
+            <li>
+                <span class="fa fa-angle-right"></span>
+            </li>
+
+            <li><a href="tournaments.html">Tournaments</a></li>
+
+
+            <li>
+                <span class="fa fa-angle-right"></span>
+            </li>
+
+            <li><a href="tournaments-teams.html">Teams</a></li>
+
+
+            <li>
+                <span class="fa fa-angle-right"></span>
+            </li>
+
+            <li>
+                <span>{{ profile.username }}</span>
+            </li>
+
+        </ul>
+    </div>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+    <div class="container">
+    <div class="row vertical-gap">
+    <div class="col-lg-8">
+
+        <!-- START: Teammate Card -->
+        <div class="nk-teammate-card">
+            <div class="nk-teammate-card-photo">
+                <img src="/static/images/{{ profile.image_url }}" alt="{{ profile.username }}">
+            </div>
+
+            <div class="nk-teammate-card-info">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <img src="{% static 'images/teammate-team.png' %}" alt="">
+                        </td>
+                        <td>
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <strong class="h5">Name:</strong>&nbsp;&nbsp;&nbsp;</td>
+                                    <td>
+                                        <strong class="h5">{{ profile.username }}</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong class="h5">Nickname:</strong>&nbsp;&nbsp;&nbsp;</td>
+                                    <td>
+                                        <strong class="h5">{{ profile.dispaly_name }}</strong>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong class="h3">7.3</strong>
+                        </td>
+                        <td>
+                            <strong class="h5">KDA Ration</strong>
+                            <div>#5 in World Championship</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong class="h3">8.3</strong>
+                        </td>
+                        <td>
+                            <strong class="h5">CS PER MIN</strong>
+                            <div>#23 in World Championship</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong class="h3">64%</strong>
+                        </td>
+                        <td>
+                            <strong class="h5">KILL PARTICIPATION</strong>
+                            <div>#66 in World Championship</div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- END: Teammate Card -->
+
+        <!-- START: Biography -->
+        <div class="nk-gap-3"></div>
+        <h3 class="nk-decorated-h-2">
+            <span>Biography</span>
+        </h3>
+        <p> {{ profile.text }} </p>
+        <!-- END: Biography -->
+
+        <!-- START: Latest Matches -->
+        <div class="nk-gap-2"></div>
+        <h3 class="nk-decorated-h-2">
+                        <span>
+                            <span class="text-main-1">Latest</span> Matches</span>
+        </h3>
+        <div class="nk-gap"></div>
+        <div class="nk-match">
+            <div class="nk-match-team-left">
+                <div>
+                    <div class="nk-match-team-logo">
+                        <img src="assets/images/team-1.jpg" alt="">
+                    </div>
+                    <div class="nk-match-team-name">
+                        SK Telecom T1
+                    </div>
+                </div>
+            </div>
+            <div class="nk-match-status">
+                <div class="nk-match-status-vs">VS</div>
+                <div class="nk-match-status-date">Apr 28, 2016 8:00 pm</div>
+                <div class="nk-match-score bg-danger">
+                    2 : 17
+                </div>
+            </div>
+            <div class="nk-match-team-right">
+                <div>
+                    <div class="nk-match-team-name">
+                        Cloud 9
+                    </div>
+                    <div class="nk-match-team-logo">
+                        <img src="assets/images/team-2.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nk-match">
+            <div class="nk-match-team-left">
+                <div>
+                    <div class="nk-match-team-logo">
+                        <img src="assets/images/team-3.jpg" alt="">
+                    </div>
+                    <div class="nk-match-team-name">
+                        Counted logic gaming
+                    </div>
+                </div>
+            </div>
+            <div class="nk-match-status">
+                <div class="nk-match-status-vs">VS</div>
+                <div class="nk-match-status-date">Apr 15, 2016 9:00 pm</div>
+                <div class="nk-match-score bg-success">
+                    28 : 19
+                </div>
+            </div>
+            <div class="nk-match-team-right">
+                <div>
+                    <div class="nk-match-team-name">
+                        SK Telecom T1
+                    </div>
+                    <div class="nk-match-team-logo">
+                        <img src="assets/images/team-1.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nk-match">
+            <div class="nk-match-team-left">
+                <div>
+                    <div class="nk-match-team-logo">
+                        <img src="assets/images/team-4.jpg" alt="">
+                    </div>
+                    <div class="nk-match-team-name">
+                        Team SoloMid
+                    </div>
+                </div>
+            </div>
+            <div class="nk-match-status">
+                <div class="nk-match-status-vs">VS</div>
+                <div class="nk-match-status-date">Apr 28, 2016 8:00 pm</div>
+                <div class="nk-match-score bg-dark-1">
+                    13 : 13
+                </div>
+            </div>
+            <div class="nk-match-team-right">
+                <div>
+                    <div class="nk-match-team-name">
+                        SK Telecom T1
+                    </div>
+                    <div class="nk-match-team-logo">
+                        <img src="assets/images/team-1.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: Latest Matches -->
+
+        <!-- START: Upcoming Matches -->
+        <div class="nk-gap-3"></div>
+        <h3 class="nk-decorated-h-2">
+                        <span>
+                            <span class="text-main-1">Upcoming</span> Matches</span>
+        </h3>
+        <div class="nk-gap"></div>
+        <div class="nk-match">
+            <div class="nk-match-team-left">
+                <div>
+                    <div class="nk-match-team-logo">
+                        <img src="assets/images/team-1.jpg" alt="">
+                    </div>
+                    <div class="nk-match-team-name">
+                        SK Telecom T1
+                    </div>
+                </div>
+            </div>
+            <div class="nk-match-status">
+                <div class="nk-match-status-vs">VS</div>
+                <div class="nk-match-status-date">Apr 28, 2016 8:00 pm</div>
+                <div class="nk-match-score">
+                    Upcoming
+                </div>
+            </div>
+            <div class="nk-match-team-right">
+                <div>
+                    <div class="nk-match-team-name">
+                        Cloud 9
+                    </div>
+                    <div class="nk-match-team-logo">
+                        <img src="assets/images/team-2.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nk-match">
+            <div class="nk-match-team-left">
+                <div>
+                    <div class="nk-match-team-logo">
+                        <img src="assets/images/team-3.jpg" alt="">
+                    </div>
+                    <div class="nk-match-team-name">
+                        Counted logic gaming
+                    </div>
+                </div>
+            </div>
+            <div class="nk-match-status">
+                <div class="nk-match-status-vs">VS</div>
+                <div class="nk-match-status-date">Apr 15, 2016 9:00 pm</div>
+                <div class="nk-match-score">
+                    Upcoming
+                </div>
+            </div>
+            <div class="nk-match-team-right">
+                <div>
+                    <div class="nk-match-team-name">
+                        SK Telecom T1
+                    </div>
+                    <div class="nk-match-team-logo">
+                        <img src="assets/images/team-1.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nk-match">
+            <div class="nk-match-team-left">
+                <div>
+                    <div class="nk-match-team-logo">
+                        <img src="assets/images/team-4.jpg" alt="">
+                    </div>
+                    <div class="nk-match-team-name">
+                        Team SoloMid
+                    </div>
+                </div>
+            </div>
+            <div class="nk-match-status">
+                <div class="nk-match-status-vs">VS</div>
+                <div class="nk-match-status-date">Apr 28, 2016 8:00 pm</div>
+                <div class="nk-match-score">
+                    Upcoming
+                </div>
+            </div>
+            <div class="nk-match-team-right">
+                <div>
+                    <div class="nk-match-team-name">
+                        SK Telecom T1
+                    </div>
+                    <div class="nk-match-team-logo">
+                        <img src="assets/images/team-1.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: Upcoming Matches -->
+
+    </div>
+{% endblock %}

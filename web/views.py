@@ -3,8 +3,10 @@ from django.contrib.auth import (
     login,
     logout
 )
-from django.shortcuts import render, HttpResponseRedirect, redirect
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import (
+    render,
+    redirect
+)
 from django.views.decorators.http import require_POST
 
 from account.forms import (
@@ -12,6 +14,7 @@ from account.forms import (
     login_form,
     RegisterForm
 )
+from account.models import CustomUser as User
 
 
 def top_page(request):
@@ -64,6 +67,24 @@ def contact_page(request):
 
 def article_page(request):
     return render(request, 'web/article.html', context={
+        'login_form': login_form
+    })
+
+
+def user_page(request):
+    """
+    ユーザページへ遷移
+    :param request:
+    :return:
+    """
+    user_id = request.GET['user_id'] or None
+    # User IDが指定されていなかった場合は404
+    if not user_id:
+        return render(request, 'web/404.html', context={
+            'login_form': login_form
+        })
+    return render(request, 'web/user.html', context={
+        'profile': User.objects.get(pk=user_id),
         'login_form': login_form
     })
 
@@ -121,9 +142,7 @@ def register(request):
     if register_form.is_valid():
         user = register_form.save()
         login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-        return render(request, 'web/index.html', context={
-            'login_form': login_form,
-        })
+        return redirect('/')
     return render(request, 'web/register.html', context={
         'login_form': login_form,
         'register_form': register_form

@@ -40,7 +40,9 @@ class CustomUser(AbstractBaseUser):
     date_joined = models.DateTimeField(auto_now_add=True)
 
     # Extra
-    nickname = models.CharField(max_length=25)
+    nickname = models.CharField(max_length=255)
+    text = models.TextField()
+    image_url = models.ImageField(upload_to='users', blank=True, default='users/default_face.png')
 
     objects = MyUserManager()
     USERNAME_FIELD = 'email'
@@ -52,3 +54,8 @@ class CustomUser(AbstractBaseUser):
         """Validate the field uniqueness"""
         CustomUser.objects.filter(email=self.email, is_active=False).delete()
         super(CustomUser, self).validate_unique(exclude)
+
+    def display_name(self):
+        if self.nickname:
+            return self.nickname
+        return self.username

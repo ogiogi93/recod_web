@@ -11,7 +11,7 @@
 
 log/
 
-gaming_site/database.py
-gaming_site/static_settings.py
+recod_web/database.py
+recod_web/static_settings.py
 .python-version
 template/*
