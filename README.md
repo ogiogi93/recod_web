@@ -1,5 +1,5 @@
-## Resurrection COD (recod) Project
+## Resurrection COD (recod) Project ※変更予定
 ### これは何？
-COD WW2の大会情報サイトのDjango Project。
+e-sportsの大会情報サイトのDjango Project。
 
 http://recod-stg.ogiogi93.com/
