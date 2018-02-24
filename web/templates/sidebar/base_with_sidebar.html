@@ -81,19 +81,20 @@
                                     <span class="text-main-1">Next</span> Matches</span>
                 </h4>
                 <div class="nk-widget-content">
+                    {% for next_match in next_matches %}
                     <div class="nk-widget-match">
                         <div>
                             <div class="nk-widget-match-left">
                                 <div class="nk-widget-match-teams">
                                     <div class="nk-widget-match-team-logo">
-                                        <img src="{% static 'images/team-1.jpg' %}" alt="">
+                                        <img src="{{ next_match.home_team_image }}" alt="{{ next_match.home_team_name }}">
                                     </div>
                                     <div class="nk-widget-match-vs">VS</div>
                                     <div class="nk-widget-match-team-logo">
-                                        <img src="{% static 'images/team-2.jpg' %}" alt="">
+                                        <img src="{{ next_match.away_team_image }}" alt="{{ next_match.away_team_name }}">
                                     </div>
                                 </div>
-                                <div class="nk-widget-match-date">2018-1-14 8:00 pm</div>
+                                <div class="nk-widget-match-date">{{ next_match.start_date }} {{ next_match.start_time }}</div>
                             </div>
                             <div class="nk-widget-match-right">
                                 <div class="nk-match-score">
@@ -102,49 +103,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="nk-widget-match">
-                        <div>
-                            <div class="nk-widget-match-left">
-                                <div class="nk-widget-match-teams">
-                                    <div class="nk-widget-match-team-logo">
-                                        <img src="{% static 'images/team-1.jpg' %}" alt="">
-                                    </div>
-                                    <div class="nk-widget-match-vs">VS</div>
-                                    <div class="nk-widget-match-team-logo">
-                                        <img src="{% static 'images/team-2.jpg' %}" alt="">
-                                    </div>
-                                </div>
-                                <div class="nk-widget-match-date">2018-1-14 8:00 pm</div>
-                            </div>
-                            <div class="nk-widget-match-right">
-                                <div class="nk-match-score">
-                                    Upcoming
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="nk-widget-match">
-                        <div>
-                            <div class="nk-widget-match-left">
-                                <div class="nk-widget-match-teams">
-                                    <div class="nk-widget-match-team-logo">
-                                        <img src="{% static 'images/team-1.jpg' %}" alt="">
-                                    </div>
-                                    <div class="nk-widget-match-vs">VS</div>
-                                    <div class="nk-widget-match-team-logo">
-                                        <img src="{% static 'images/team-2.jpg' %}" alt="">
-                                    </div>
-                                </div>
-                                <div class="nk-widget-match-date">2018-1-14 8:00 pm</div>
-                            </div>
-                            <div class="nk-widget-match-right">
-                                <div class="nk-match-score">
-                                    Upcoming
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </aside>

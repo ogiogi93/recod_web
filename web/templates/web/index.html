@@ -2,378 +2,208 @@
 {% load staticfiles %}
 {% block content %}
     <div class="nk-main">
-        <div class="nk-gap-2"></div>
-        <div class="container">
-            <!-- START: Image Slider -->
-            <div class="nk-image-slider" data-autoplay="8000">
-                <div class="nk-image-slider-item">
-                    <img src="{% static 'images/slide-1.jpg' %}" alt="" class="nk-image-slider-img"
-                         data-thumb="{% static 'images/slide-1-thumb.jpg' %}">
-                    <div class="nk-image-slider-content">
-                        <h3 class="h4">タイトルタイトルタイトル</h3>
-                        <p class="text-white">テキストテキストテキストテキストテキスト</p>
-                        <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-hover-color-main-1">Read
-                            More</a>
-                    </div>
-                </div>
-                <div class="nk-image-slider-item">
-                    <img src="{% static 'images/slide-2.jpg' %}" alt="" class="nk-image-slider-img"
-                         data-thumb="{% static 'images/slide-2-thumb.jpg' %}">
-                    <div class="nk-image-slider-content">
-                        <h3 class="h4">タイトルタイトルタイトル</h3>
-                        <p class="text-white">テキストテキストテキストテキストテキスト</p>
-                        <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-hover-color-main-1">Read
-                            More</a>
-                    </div>
-                </div>
-                <div class="nk-image-slider-item">
-                    <img src="{% static 'images/slide-3.jpg' %}" alt="" class="nk-image-slider-img"
-                         data-thumb="{% static 'images/slide-3-thumb.jpg' %}">
-                    <div class="nk-image-slider-content">
-                        <h3 class="h4">タイトルタイトルタイトル</h3>
-                        <p class="text-white">テキストテキストテキストテキストテキスト</p>
-                        <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-hover-color-main-1">Read
-                            More</a>
-                    </div>
+    <div class="nk-gap-2"></div>
+    <div class="container">
+    <!-- START: Image Slider -->
+    <div class="nk-image-slider" data-autoplay="8000">
+        {% for topic_article in topic_articles %}
+            <div class="nk-image-slider-item">
+                <img src="{{ topic_article.image }}" alt="" class="nk-image-slider-img"
+                     data-thumb="{{ topic_article.image }}">
+                <div class="nk-image-slider-content">
+                    <h3 class="h4">{{ topic_article.title }} </h3>
+                    <p class="text-white">{{ topic_article.content }}</p>
+                    <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-hover-color-main-1">
+                        Read More</a>
                 </div>
             </div>
-            <!-- END: Image Slider -->
-            <!-- START: Latest News -->
-            <div class="nk-gap-2"></div>
-            <h3 class="nk-decorated-h-2">
+        {% endfor %}
+    </div>
+    <!-- END: Image Slider -->
+    <!-- START: Latest News -->
+    <div class="nk-gap-2"></div>
+    <h3 class="nk-decorated-h-2">
                 <span>
                     <span class="text-main-1">最新</span> ニュース</span>
-            </h3>
-            <div class="nk-gap"></div>
+    </h3>
+    <div class="nk-gap"></div>
 
-            <div class="nk-news-box">
-                <div class="nk-news-box-list">
-                    <div class="nano">
-                        <div class="nano-content">
-                            <div class="nk-news-box-item nk-news-box-item-active">
-                                <div class="nk-news-box-item-img">
-                                    <img src="{% static 'images/post-1-sm.jpg' %}"
-                                         alt="Smell magic in the air. Or maybe barbecue">
-                                </div>
-                                <img src="{% static 'images/post-1.jpg' %}"
-                                     alt="Smell magic in the air. Or maybe barbecue"
-                                     class="nk-news-box-item-full-img">
-                                <h3 class="nk-news-box-item-title">タイトルタイトルタイトル</h3>
-
-                                <span class="nk-news-box-item-categories">
-                                    <span class="bg-main-4">Tournament</span>
-                                </span>
-
-                                <div class="nk-news-box-item-text">
-                                    <p>大会結果, 更新</p>
-                                </div>
-                                <a href="#" class="nk-news-box-item-url">Read More</a>
-                                <div class="nk-news-box-item-date">
-                                    <span class="fa fa-calendar"></span> 2017/12/01
-                                </div>
+    <div class="nk-news-box">
+        <div class="nk-news-box-list">
+            <div class="nano">
+                <div class="nano-content">
+                    {% for new_article in new_articles %}
+                        <div class="nk-news-box-item nk-news-box-item-active">
+                            <div class="nk-news-box-item-img">
+                                <img src="{{ new_article.image }}"
+                                     alt="{{ new_article.title }}">
                             </div>
-                            <div class="nk-news-box-item nk-news-box-item-active">
-                                <div class="nk-news-box-item-img">
-                                    <img src="{% static 'images/post-1-sm.jpg' %}"
-                                         alt="Smell magic in the air. Or maybe barbecue">
-                                </div>
-                                <img src="{% static 'images/post-1.jpg' %}"
-                                     alt="Smell magic in the air. Or maybe barbecue"
-                                     class="nk-news-box-item-full-img">
-                                <h3 class="nk-news-box-item-title">タイトルタイトルタイトル</h3>
+                            <img src="{{ new_article.image }}"
+                                 alt="{{ new_article.title }}"
+                                 class="nk-news-box-item-full-img">
+                            <h3 class="nk-news-box-item-title">{{ new_article.title }}</h3>
 
-                                <span class="nk-news-box-item-categories">
-                                    <span class="bg-main-4">Tournament</span>
-                                </span>
-
-                                <div class="nk-news-box-item-text">
-                                    <p>テキストテキストテキストテキスト</p>
-                                </div>
-                                <a href="#" class="nk-news-box-item-url">Read More</a>
-                                <div class="nk-news-box-item-date">
-                                    <span class="fa fa-calendar"></span> 2017/12/01
-                                </div>
-                            </div>
-                            <div class="nk-news-box-item nk-news-box-item-active">
-                                <div class="nk-news-box-item-img">
-                                    <img src="{% static 'images/post-1-sm.jpg' %}"
-                                         alt="Smell magic in the air. Or maybe barbecue">
-                                </div>
-                                <img src="{% static 'images/post-1.jpg' %}"
-                                     alt="Smell magic in the air. Or maybe barbecue"
-                                     class="nk-news-box-item-full-img">
-                                <h3 class="nk-news-box-item-title">タイトルタイトルタイトル</h3>
-
-                                <span class="nk-news-box-item-categories">
-                                    <span class="bg-main-4">Tournament</span>
-                                </span>
-
-                                <div class="nk-news-box-item-text">
-                                    <p>テキストテキストテキストテキスト</p>
-                                </div>
-                                <a href="#" class="nk-news-box-item-url">Read More</a>
-                                <div class="nk-news-box-item-date">
-                                    <span class="fa fa-calendar"></span> 2017/12/01
-                                </div>
-                            </div>
-                            <div class="nk-news-box-item nk-news-box-item-active">
-                                <div class="nk-news-box-item-img">
-                                    <img src="{% static 'images/post-1-sm.jpg' %}"
-                                         alt="Smell magic in the air. Or maybe barbecue">
-                                </div>
-                                <img src="{% static 'images/post-1.jpg' %}"
-                                     alt="Smell magic in the air. Or maybe barbecue"
-                                     class="nk-news-box-item-full-img">
-                                <h3 class="nk-news-box-item-title">タイトルタイトルタイトル</h3>
-
-                                <span class="nk-news-box-item-categories">
-                                    <span class="bg-main-4">Tournament</span>
-                                </span>
-
-                                <div class="nk-news-box-item-text">
-                                    <p>テキストテキストテキストテキスト</p>
-                                </div>
-                                <a href="#" class="nk-news-box-item-url">Read More</a>
-                                <div class="nk-news-box-item-date">
-                                    <span class="fa fa-calendar"></span> 2017/12/01
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="nk-news-box-each-info">
-                    <div class="nano">
-                        <div class="nano-content">
-                            <!-- There will be inserted info about selected news-->
-                            <div class="nk-news-box-item-image"
-                                 style="background-image: url({% static 'images/post-1.jpg' %});">
-                                <span class="nk-news-box-item-categories">
-                                    <span class="bg-main-4">大会</span>
-                                </span>
-                            </div>
-                            <h3 class="nk-news-box-item-title">タイトルタイトルタイトルタイトル</h3>
+                            <!--
+                            <span class="nk-news-box-item-categories">
+                                        <span class="bg-main-4">Tournament</span>
+                                    </span>
+                            -->
                             <div class="nk-news-box-item-text">
-                                <p> テキストテキストテキスト </p>
+                                <p>{{ new_article.content }}</p>
                             </div>
-                            <a href="#" class="nk-news-box-item-more">Read More</a>
+                            <a href="#" class="nk-news-box-item-url">Read More</a>
                             <div class="nk-news-box-item-date">
-                                <span class="fa fa-calendar"></span> 2017-12-01
+                                <span class="fa fa-calendar"></span> {{ new_article.updated_at.date }}
                             </div>
                         </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="nk-news-box-each-info">
+            <div class="nano">
+                <div class="nano-content">
+                    <!-- There will be inserted info about selected news-->
+                    <div class="nk-news-box-item-image"
+                         style="background-image: url({% static 'images/post-1.jpg' %});">
+                        <!--
+                                <span class="nk-news-box-item-categories">
+                                    <span class="bg-main-4"></span>
+                                </span>
+                         -->
+                    </div>
+                    <h3 class="nk-news-box-item-title"></h3>
+                    <div class="nk-news-box-item-text">
+                        <p></p>
+                    </div>
+                    <a href="#" class="nk-news-box-item-more">Read More</a>
+                    <div class="nk-news-box-item-date">
+                        <span class="fa fa-calendar"></span>
                     </div>
                 </div>
             </div>
-            <div class="nk-gap-2"></div>
-            <div class="nk-blog-grid">
-                <div class="row">
-                    <div class="col-md-6 col-lg-3">
-                        <!-- START: Post -->
-                        <div class="nk-blog-post">
-                            <a href="#" class="nk-post-img">
-                                <img src="{% static 'images/post-5-mid.jpg' %}" alt="">
-                                <span class="nk-post-categories">
-                                    <span class="bg-main-5">Game Spark</span>
+        </div>
+    </div>
+    <div class="nk-gap-2"></div>
+    <div class="nk-blog-grid">
+        <div class="row">
+            {% for media_article in media_articles %}
+                <div class="col-md-6 col-lg-3">
+                    <!-- START: Post -->
+                    <div class="nk-blog-post">
+                        <a href="{{ media_article.url }}" class="nk-post-img">
+                            <img src="{{ media_article.image }}" alt="{{ media_article.title }}">
+                            <span class="nk-post-categories">
+                                    <span class="bg-main-5">{{ media_article.user.nickname }}</span>
                                 </span>
-
+                        </a>
+                        <div class="nk-gap"></div>
+                        <h2 class="nk-post-title h4">
+                            <a href="{{ media_article.url }}" target="_blank">
+                                {{ media_article.title }}
                             </a>
-                            <div class="nk-gap"></div>
-                            <h2 class="nk-post-title h4"><a href="#">タイトルタイトルタイトル</a></h2>
-                            <div class="nk-post-text">
-                                <p>提携メディアのニュース</p>
-                            </div>
-                            <div class="nk-gap"></div>
-                            <a href="#"
-                               class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Read More</a>
-                            <div class="nk-post-date pull-right">
-                                <span class="fa fa-calendar"></span> 2018/1/1
-                            </div>
+                        </h2>
+                        <div class="nk-post-text">
+                            <p>{{ media_article.content }}</p>
                         </div>
-                        <!-- END: Post -->
-                    </div>
-
-                    <div class="col-md-6 col-lg-3">
-                        <!-- START: Post -->
-                        <div class="nk-blog-post">
-                            <a href="#" class="nk-post-img">
-                                <img src="{% static 'images/post-5-mid.jpg' %}" alt="">
-                                <span class="nk-post-categories">
-                                    <span class="bg-main-5">4Gamer</span>
-                                </span>
-
-                            </a>
-                            <div class="nk-gap"></div>
-                            <h2 class="nk-post-title h4"><a href="#">タイトルタイトルタイトル</a></h2>
-                            <div class="nk-post-text">
-                                <p>テキストテキストテキストテキスト</p>
-                            </div>
-                            <div class="nk-gap"></div>
-                            <a href="#"
-                               class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Read More</a>
-                            <div class="nk-post-date pull-right">
-                                <span class="fa fa-calendar"></span> 2018/1/1
-                            </div>
+                        <div class="nk-gap"></div>
+                        <a href="#{{ media_article.url }}"
+                           class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Read More</a>
+                        <div class="nk-post-date pull-right">
+                            <span class="fa fa-calendar"></span> {{ media_article.updated_at.date }}
                         </div>
-                        <!-- END: Post -->
                     </div>
-
-                    <div class="col-md-6 col-lg-3">
-                        <!-- START: Post -->
-                        <div class="nk-blog-post">
-                            <a href="#" class="nk-post-img">
-                                <img src="{% static 'images/post-5-mid.jpg' %}" alt="">
-                                <span class="nk-post-categories">
-                                    <span class="bg-main-5">Negitaku</span>
-                                </span>
-
-                            </a>
-                            <div class="nk-gap"></div>
-                            <h2 class="nk-post-title h4"><a href="#">タイトルタイトルタイトル</a></h2>
-                            <div class="nk-post-text">
-                                <p>テキストテキストテキストテキスト</p>
-                            </div>
-                            <div class="nk-gap"></div>
-                            <a href="#"
-                               class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Read More</a>
-                            <div class="nk-post-date pull-right">
-                                <span class="fa fa-calendar"></span> 2018/1/1
-                            </div>
-                        </div>
-                        <!-- END: Post -->
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <!-- START: Post -->
-                        <div class="nk-blog-post">
-                            <a href="#" class="nk-post-img">
-                                <img src="{% static 'images/post-5-mid.jpg' %}" alt="">
-                                <span class="nk-post-categories">
-                                    <span class="bg-main-5">Official Site</span>
-                                </span>
-
-                            </a>
-                            <div class="nk-gap"></div>
-                            <h2 class="nk-post-title h4"><a href="#">タイトルタイトルタイトル</a></h2>
-                            <div class="nk-post-text">
-                                <p>テキストテキストテキストテキスト</p>
-                            </div>
-                            <div class="nk-gap"></div>
-                            <a href="#"
-                               class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Read More</a>
-                            <div class="nk-post-date pull-right">
-                                <span class="fa fa-calendar"></span> Jul 23, 2016
-                            </div>
-                        </div>
-                        <!-- END: Post -->
-                    </div>
+                    <!-- END: Post -->
                 </div>
-            </div>
-            <!-- END: Latest News -->
+            {% endfor %}
+        </div>
+    </div>
+    <!-- END: Latest News -->
 
-            <div class="nk-gap-2"></div>
-            <div class="row vertical-gap">
-                <div class="col-lg-8">
-                    <!-- START: Latest Matches -->
-                    <div class="nk-gap-2"></div>
-                    <h3 class="nk-decorated-h-2">
+    <div class="nk-gap-2"></div>
+    <div class="row vertical-gap">
+    <div class="col-lg-8">
+        <!-- START: Latest Matches -->
+        <!--
+        <div class="nk-gap-2"></div>
+        <h3 class="nk-decorated-h-2">
                         <span>
                             <span class="text-main-1">最新</span> 試合</span>
-                    </h3>
-                    <div class="nk-gap"></div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="nk-match-score bg-dark-3">
-                                Live
-                            </div>
-                            <div class="nk-gap-2"></div>
-                            <div class="nk-widget-match p-0">
-                                <div class="nk-widget-match-teams">
-                                    <div class="nk-widget-match-team-logo">
-                                        <img src="{% static 'images/team-1.jpg' %}" alt="">
-                                    </div>
-                                    <div class="nk-widget-match-vs">VS</div>
-                                    <div class="nk-widget-match-team-logo">
-                                        <img src="{% static 'images/team-2.jpg' %}" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="nk-gap-2"></div>
-                            <p> テキストテキストテキストテキストテキストテキストテキストテキスト </p>
-                            <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-main-1"> 試合詳細 </a>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="responsive-embed responsive-embed-16x9">
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/_Vv96ALjVUo"
-                                        frameborder="0" gesture="media" allow="encrypted-media"
-                                        allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="nk-gap"></div>
-                    <div class="nk-match">
-                        <div class="nk-match-team-left">
-                            <div>
-                                <div class="nk-match-team-logo">
-                                    <img src="{% static 'images/team-1.jpg' %}" alt="">
-                                </div>
-                                <div class="nk-match-team-name">
-                                    HOME
-                                </div>
-                            </div>
-                        </div>
-                        <div class="nk-match-status">
-                            <div class="nk-match-status-vs">VS</div>
-                            <div class="nk-match-status-date">2017-12-01 8:00 pm</div>
-                            <div class="nk-match-score bg-danger">
-                                5 : 8
-                            </div>
-                        </div>
-                        <div class="nk-match-team-right">
-                            <div>
-                                <div class="nk-match-team-name">
-                                    白米
-                                </div>
-                                <div class="nk-match-team-logo">
-                                    <img src="{% static 'images/team-2.jpg' %}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="nk-match">
-                        <div class="nk-match-team-left">
-                            <div>
-                                <div class="nk-match-team-logo">
-                                    <img src="{% static 'images/team-1.jpg' %}" alt="">
-                                </div>
-                                <div class="nk-match-team-name">
-                                    Sixth Senses
-                                </div>
-                            </div>
-                        </div>
-                        <div class="nk-match-status">
-                            <div class="nk-match-status-vs">VS</div>
-                            <div class="nk-match-status-date">2017-12-14 19:00 pm</div>
-                            <div class="nk-match-score bg-success">
-                                8 : 3
-                            </div>
-                        </div>
-                        <div class="nk-match-team-right">
-                            <div>
-                                <div class="nk-match-team-name">
-                                    HOME
-                                </div>
-                                <div class="nk-match-team-logo">
-                                    <img src="{% static 'images/team-1.jpg' %}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END: Latest Matches -->
+        </h3>
+        <div class="nk-gap"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="nk-match-score bg-dark-3">
+                    {{ latest_match.status }}
                 </div>
+                <div class="nk-gap-2"></div>
+                <div class="nk-widget-match p-0">
+                    <div class="nk-widget-match-teams">
+                        <div class="nk-widget-match-team-logo">
+                            <img src="{{ latest_match.home_team_image }}" alt="">
+                        </div>
+                        <div class="nk-widget-match-vs">VS</div>
+                        <div class="nk-widget-match-team-logo">
+                            <img src="{{ latest_match.away_team_image }}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-gap-2"></div>
+                <p> {{ latest_match.tournament_name }} </p>
+                <p> {{ latest_match.home_team_name }} vs {{ latest_match.away_team_name }} </p>
+                <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-main-1"> 試合詳細 </a>
+            </div>
+            <!--
+            <div class="col-md-8">
+                <div class="responsive-embed responsive-embed-16x9">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/_Vv96ALjVUo"
+                            frameborder="0" gesture="media" allow="encrypted-media"
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+            -->
+        <div class="nk-gap"></div>
+        {% for new_match in new_matches %}
+            <div class="nk-match">
+                <div class="nk-match-team-left">
+                    <div>
+                        <div class="nk-match-team-logo">
+                            <img src="{{ new_match.home_team_image }}" alt="{{ new_match.home_team_name }}" width="140"
+                                 height="140">
+                        </div>
+                        <div class="nk-match-team-name">
+                            {{ new_match.home_team_name }}
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-match-status">
+                    <div class="nk-match-status-vs">VS</div>
+                    <div class="nk-match-status-date">{{ new_match.start_date }} {{ new_match.start_time }}</div>
+                    <div class="nk-match-score bg-danger">
+                        {{ new_match.home_team_score }} : {{ new_match.away_team_score }}
+                    </div>
+                </div>
+                <div class="nk-match-team-right">
+                    <div>
+                        <div class="nk-match-team-name">
+                            {{ new_match.away_team_name }}
+                        </div>
+                        <div class="nk-match-team-logo">
+                            <img src="{{ new_match.away_team_image }}" alt="{{ new_match.away_team_name }}" width="140"
+                                 height="140">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <!-- END: Latest Matches -->
+    </div>
 {% endblock %}
 {% block background %}
-</div></div>
-<!-- START: Page Background -->
-<img class="nk-page-background-top" src="{% static 'images/bg-top.jpg' %}" alt="">
-<img class="nk-page-background-bottom" src="{% static 'images/bg-bottom.png' %}" alt="">
-<!-- END: Page Background -->
+    </div></div>
+    <!-- START: Page Background -->
+    <img class="nk-page-background-top" src="{% static 'images/bg-top.jpg' %}" alt="">
+    <img class="nk-page-background-bottom" src="{% static 'images/bg-bottom.png' %}" alt="">
+    <!-- END: Page Background -->
 {% endblock %}

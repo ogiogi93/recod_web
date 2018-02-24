@@ -1,25 +1,23 @@
-from django.contrib.auth import (
-    authenticate,
-    login,
-    logout
-)
-from django.shortcuts import (
-    render,
-    redirect
-)
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 
-from account.forms import (
-    LoginForm,
-    login_form,
-    RegisterForm
-)
+from account.forms import LoginForm, login_form, RegisterForm
 from account.models import CustomUser as User
+from article.repository import get_new_articles
+from competition.repository.tournament import get_latest_match, get_new_matches, get_next_matches
 
 
 def top_page(request):
+    new_articles = get_new_articles()
     return render(request, 'web/index.html', context={
         'login_form': login_form,
+        'topic_articles': new_articles[:3],
+        'new_articles': new_articles[:4],
+        'media_articles': new_articles[:4],
+        'latest_match': get_latest_match(),
+        'new_matches': get_new_matches(),
+        'next_matches': get_next_matches()
     })
 
 
