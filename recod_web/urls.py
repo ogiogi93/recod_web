@@ -15,29 +15,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import url
+from django.conf.urls import include, url
 
+import account.urls as account_urls
+import article.urls as article_urls
+import competition.urls as competition_urls
+import team.urls as team_urls
+import video.urls as video_urls
 from web.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # Authenticate
-    url(r'^auth/login/$', login_page, name='login'),
-    url(r'^auth/logout/$', logout_page, name='logout'),
-    url(r'^auth/register/$', register, name='register'),
-    url(r'^register/$', register_page, name='register_page'),
     # Top Page
-    url(r'^$', top_page, name='top_page'),
-    # List Page
-    url(r'^news_list/$', news_list_page, name='news_list_page'),
-    url(r'^team_list/$', team_list_page, name='team_list_page'),
-    url(r'^video_list/$', video_list_page, name='video_list_page'),
-    # Main Page
-    url(r'^article/$', article_page, name='article_page'),
-    url(r'^user/$', user_page, name='user_page'),
-    url(r'^forum/$', forum_page, name='forum_page'),
-    url(r'^competition/$', competition_page, name='competition_page'),
-    url(r'^live/$', live_page, name='live_page'),
+    url(r'^$', top, name='top_page'),
+    url(r'^', include(account_urls)),
+    url(r'^', include(article_urls)),
+    url(r'^', include(competition_urls)),
+    url(r'^', include(team_urls)),
+    url(r'^', include(video_urls)),
+    url(r'^forum/$', forum, name='forum_page'),
     # Information Page
-    url(r'^contact/$', contact_page, name='contact_page'),
+    url(r'^contact/$', contact, name='contact_page'),
 ]

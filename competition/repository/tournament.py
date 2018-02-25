@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from competition.infrastructure.tournament import MatchTeam, Match, Tournament
 
 
@@ -7,6 +9,9 @@ class MatchEntity:
 
     def tournament_name(self):
         return self._match_teams[0].match.tournament.name
+
+    def tournament_image(self):
+        return self._match_teams[0].match.tournament.image or 'https://talentech.co.za/assets/img/default-logo.png'
 
     def status(self):
         return self._match_teams[0].match.status
@@ -21,7 +26,7 @@ class MatchEntity:
         return self._match_teams[0].team.name
 
     def home_team_image(self):
-        return self._match_teams[0].team.logo_url or 'https://talentech.co.za/assets/img/default-logo.png'
+        return self._match_teams[0].team.image or 'https://talentech.co.za/assets/img/default-logo.png'
 
     def home_team_score(self):
         return self._match_teams[0].score
@@ -30,7 +35,7 @@ class MatchEntity:
         return self._match_teams[1].team.name
 
     def away_team_image(self):
-        return self._match_teams[1].team.logo_url or 'https://talentech.co.za/assets/img/default-logo.png'
+        return self._match_teams[1].team.image or 'https://talentech.co.za/assets/img/default-logo.png'
 
     def away_team_score(self):
         return self._match_teams[1].score
@@ -76,3 +81,21 @@ def get_next_matches(limit=3):
         next_matches.append(MatchEntity(MatchTeam.objects.select_related('team', 'match', 'match__tournament')
                                        .filter(match_id=match_id)))
     return next_matches
+
+
+def get_future_tournaments(limit=5):
+    """
+    開催前の大会情報を返す
+    :param int limit:
+    :rtype:
+    """
+    return Tournament.objects.filter(is_active=True, date_start__gte=timezone.now())[:limit]
+
+
+def get_old_tournaments(limit=10):
+    """
+    開催後の大会情報を返す
+    :param limit:
+    :return:
+    """
+    return Tournament.objects.filter(is_active=True, date_start__lt=timezone.now())[:limit]

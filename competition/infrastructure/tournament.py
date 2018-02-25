@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.lru_cache import lru_cache
 
 from competition.infrastructure.discipline import Game
-from competition.infrastructure.teams import Team
+from team.models import Team
 
 
 class MatchFormat(models.Model):
@@ -44,6 +44,7 @@ class Tournament(models.Model):
     description = models.CharField(max_length=1500)
     rules = models.CharField(max_length=10000)
     prize = models.CharField(max_length=1500)
+    image = models.URLField()
     is_active = models.BooleanField(default=True)
     match_format = models.ForeignKey(MatchFormat, on_delete=False)
     created_at = models.DateTimeField(auto_now_add=True)

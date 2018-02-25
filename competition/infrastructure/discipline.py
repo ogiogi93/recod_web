@@ -39,7 +39,7 @@ class Game(models.Model):
     id = models.AutoField(primary_key=True)
     platform = models.ForeignKey(Platform, on_delete=False)
     discipline = models.ForeignKey(Discipline, on_delete=False)
-    logo_url = models.URLField()
+    image = models.URLField()
     home_url = models.URLField()
     is_active = models.BooleanField(default=True)
     date_released = models.DateField()

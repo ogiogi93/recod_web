@@ -1,14 +1,18 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% block breadcurmbs %}
     <ul class="nk-breadcrumbs">
         <li><a href="{% url 'top_page' %}">Home</a></li>
         <li>
             <span class="fa fa-angle-right"></span>
         </li>
+        <li><a href="{% url 'article_list' %}">Article</a></li>
         <li>
-            <span>ライブ</span>
+            <span class="fa fa-angle-right"></span>
         </li>
-
+        <li>
+            <span>Articles</span>
+        </li>
     </ul>
     <div class="nk-gap-1"></div>
     <!-- END: Breadcrumbs -->
@@ -16,54 +20,64 @@
 {% block content %}
     <div class="row vertical-gap">
         <div class="col-lg-8">
-            <!-- START: Now Playing -->
-            <div class="responsive-embed responsive-embed-16x9">
-                <iframe src="https://player.twitch.tv/?channel=callofduty" height="378" width="620"></iframe>
-            </div>
-            <!-- END: Now Playing -->
-            <!-- START: Latest Matches -->
-            <div class="nk-gap-2"></div>
-            <h3 class="nk-decorated-h-2">
-                        <span>
-                            <span class="text-main-1"></span> 試合 </span>
-            </h3>
-            <div class="nk-gap"></div>
-            {% for new_match in new_matches %}
-                <div class="nk-match">
-                    <div class="nk-match-team-left">
-                        <div>
-                            <div class="nk-match-team-logo">
-                                <img src="{{ new_match.home_team_image }}" alt="{{ new_match.home_team_name }}"
-                                     width="140"
-                                     height="140">
+
+            <!-- START: Posts Grid -->
+            <div class="nk-blog-grid">
+                <div class="row">
+                    {% for article in articles %}
+                        <div class="col-md-6">
+                            <!-- START: Post -->
+                            <div class="nk-blog-post">
+                                <a href="{% url 'article' article_id=article.id %}" class="nk-post-img">
+                                    <img src="{{ article.image }}"
+                                         alt="{{ article.title }}">
+                                    <span class="nk-post-comments-count">4</span>
+                                </a>
+                                <div class="nk-gap"></div>
+                                <h2 class="nk-post-title h4">
+                                    <a href="{% url 'article' article_id=article.id %}">{{ article.tilte }}</a>
+                                </h2>
+                                <div class="nk-post-by">
+                                    <img src="{{ article.user.image_url }}" alt="" class="img-circle"
+                                         width="35">
+                                    by <a href="#">{{ article.user.nickname }}</a>
+                                    in {{ article.created_at.date }}
+                                </div>
+                                <div class="nk-gap"></div>
+                                <div class="nk-post-text">
+                                    <p>{{ article.content }}</p>
+                                </div>
+                                <div class="nk-gap"></div>
+                                <a href="{% url 'article' article_id=article.id %}"
+                                   class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Read
+                                    More</a>
                             </div>
-                            <div class="nk-match-team-name">
-                                {{ new_match.home_team_name }}
-                            </div>
+                            <!-- END: Post -->
                         </div>
+                    {% endfor %}
+
+                    <!-- START: Pagination -->
+                    <!--
+                    <div class="nk-pagination nk-pagination-center">
+                        <a href="#" class="nk-pagination-prev">
+                            <span class="ion-ios-arrow-back"></span>
+                        </a>
+                        <nav>
+                            <a class="nk-pagination-current" href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <span>...</span>
+                            <a href="#">14</a>
+                        </nav>
+                        <a href="#" class="nk-pagination-next">
+                            <span class="ion-ios-arrow-forward"></span>
+                        </a>
                     </div>
-                    <div class="nk-match-status">
-                        <div class="nk-match-status-vs">VS</div>
-                        <div class="nk-match-status-date">{{ new_match.start_date }} {{ new_match.start_time }}</div>
-                        <div class="nk-match-score bg-danger">
-                            {{ new_match.home_team_score }} : {{ new_match.away_team_score }}
-                        </div>
-                    </div>
-                    <div class="nk-match-team-right">
-                        <div>
-                            <div class="nk-match-team-name">
-                                {{ new_match.away_team_name }}
-                            </div>
-                            <div class="nk-match-team-logo">
-                                <img src="{{ new_match.away_team_image }}" alt="{{ new_match.away_team_name }}"
-                                     width="140"
-                                     height="140">
-                            </div>
-                        </div>
-                    </div>
+                    <!-- END: Pagination -->
                 </div>
-            {% endfor %}
-            <!-- END: Latest Matches -->
+                <!-- END: Posts Grid -->
+            </div>
         </div>
         <div class="col-lg-4">
             <!-- START: Sidebar -->

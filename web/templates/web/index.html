@@ -1,9 +1,6 @@
-{% extends "sidebar/base_with_sidebar.html" %}
-{% load staticfiles %}
+{% extends "base.html" %}
+{% load static %}
 {% block content %}
-    <div class="nk-main">
-    <div class="nk-gap-2"></div>
-    <div class="container">
     <!-- START: Image Slider -->
     <div class="nk-image-slider" data-autoplay="8000">
         {% for topic_article in topic_articles %}
@@ -51,7 +48,8 @@
                             <div class="nk-news-box-item-text">
                                 <p>{{ new_article.content }}</p>
                             </div>
-                            <a href="#" class="nk-news-box-item-url">Read More</a>
+                            <a href="{% url 'article' article_id=new_article.id %}" class="nk-news-box-item-url">Read
+                                More</a>
                             <div class="nk-news-box-item-date">
                                 <span class="fa fa-calendar"></span> {{ new_article.updated_at.date }}
                             </div>
@@ -107,7 +105,7 @@
                             <p>{{ media_article.content }}</p>
                         </div>
                         <div class="nk-gap"></div>
-                        <a href="#{{ media_article.url }}"
+                        <a href="{{ media_article.url }}"
                            class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Read More</a>
                         <div class="nk-post-date pull-right">
                             <span class="fa fa-calendar"></span> {{ media_article.updated_at.date }}
@@ -122,9 +120,9 @@
 
     <div class="nk-gap-2"></div>
     <div class="row vertical-gap">
-    <div class="col-lg-8">
-        <!-- START: Latest Matches -->
-        <!--
+        <div class="col-lg-8">
+            <!-- START: Latest Matches -->
+            <!--
         <div class="nk-gap-2"></div>
         <h3 class="nk-decorated-h-2">
                         <span>
@@ -163,45 +161,116 @@
             </div>
         </div>
             -->
-        <div class="nk-gap"></div>
-        {% for new_match in new_matches %}
-            <div class="nk-match">
-                <div class="nk-match-team-left">
-                    <div>
-                        <div class="nk-match-team-logo">
-                            <img src="{{ new_match.home_team_image }}" alt="{{ new_match.home_team_name }}" width="140"
-                                 height="140">
+            <div class="nk-gap"></div>
+            {% for new_match in new_matches %}
+                <div class="nk-match">
+                    <div class="nk-match-team-left">
+                        <div>
+                            <div class="nk-match-team-logo">
+                                <img src="{{ new_match.home_team_image }}" alt="{{ new_match.home_team_name }}"
+                                     width="140"
+                                     height="140">
+                            </div>
+                            <div class="nk-match-team-name">
+                                {{ new_match.home_team_name }}
+                            </div>
                         </div>
-                        <div class="nk-match-team-name">
-                            {{ new_match.home_team_name }}
+                    </div>
+                    <div class="nk-match-status">
+                        <div class="nk-match-status-vs">VS</div>
+                        <div class="nk-match-status-date">{{ new_match.start_date }} {{ new_match.start_time }}</div>
+                        <div class="nk-match-score bg-danger">
+                            {{ new_match.home_team_score }} : {{ new_match.away_team_score }}
+                        </div>
+                    </div>
+                    <div class="nk-match-team-right">
+                        <div>
+                            <div class="nk-match-team-name">
+                                {{ new_match.away_team_name }}
+                            </div>
+                            <div class="nk-match-team-logo">
+                                <img src="{{ new_match.away_team_image }}" alt="{{ new_match.away_team_name }}"
+                                     width="140"
+                                     height="140">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="nk-match-status">
-                    <div class="nk-match-status-vs">VS</div>
-                    <div class="nk-match-status-date">{{ new_match.start_date }} {{ new_match.start_time }}</div>
-                    <div class="nk-match-score bg-danger">
-                        {{ new_match.home_team_score }} : {{ new_match.away_team_score }}
+            {% endfor %}
+            <!-- END: Latest Matches -->
+        </div>
+        <div class="col-lg-4">
+            <!-- START: Sidebar -->
+            <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
+                <div class="nk-widget nk-widget-highlighted">
+                    <h4 class="nk-widget-title">
+                                <span>
+                                    <span class="text-main-1">We</span> Are Social</span>
+                    </h4>
+                    <div class="nk-widget-content">
+                        <ul class="nk-social-links-3 nk-social-links-cols-4">
+                            <li>
+                                <a class="nk-social-twitch" href="#">
+                                    <span class="fa fa-twitch"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nk-social-facebook" href="#">
+                                    <span class="fa fa-facebook"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nk-social-youtube" href="#">
+                                    <span class="fa fa-youtube-play"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nk-social-twitter" href="https://twitter.com/nkdevv" target="_blank">
+                                    <span class="fa fa-twitter"></span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div class="nk-match-team-right">
-                    <div>
-                        <div class="nk-match-team-name">
-                            {{ new_match.away_team_name }}
-                        </div>
-                        <div class="nk-match-team-logo">
-                            <img src="{{ new_match.away_team_image }}" alt="{{ new_match.away_team_name }}" width="140"
-                                 height="140">
-                        </div>
+                <div class="nk-widget nk-widget-highlighted">
+                    <h4 class="nk-widget-title">
+                                <span>
+                                    <span class="text-main-1">Next</span> Matches</span>
+                    </h4>
+                    <div class="nk-widget-content">
+                        {% for next_match in next_matches %}
+                            <div class="nk-widget-match">
+                                <div>
+                                    <div class="nk-widget-match-left">
+                                        <div class="nk-widget-match-teams">
+                                            <div class="nk-widget-match-team-logo">
+                                                <img src="{{ next_match.home_team_image }}"
+                                                     alt="{{ next_match.home_team_name }}">
+                                            </div>
+                                            <div class="nk-widget-match-vs">VS</div>
+                                            <div class="nk-widget-match-team-logo">
+                                                <img src="{{ next_match.away_team_image }}"
+                                                     alt="{{ next_match.away_team_name }}">
+                                            </div>
+                                        </div>
+                                        <div class="nk-widget-match-date">{{ next_match.start_date }} {{ next_match.start_time }}</div>
+                                    </div>
+                                    <div class="nk-widget-match-right">
+                                        <div class="nk-match-score">
+                                            Upcoming
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
-            </div>
-        {% endfor %}
-        <!-- END: Latest Matches -->
+            </aside>
+            <!-- END: Sidebar -->
+        </div>
     </div>
 {% endblock %}
 {% block background %}
-    </div></div>
     <!-- START: Page Background -->
     <img class="nk-page-background-top" src="{% static 'images/bg-top.jpg' %}" alt="">
     <img class="nk-page-background-bottom" src="{% static 'images/bg-bottom.png' %}" alt="">
