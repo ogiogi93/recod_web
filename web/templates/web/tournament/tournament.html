@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% block breadcurmbs %}
+    <ul class="nk-breadcrumbs">
+        <li><a href="{% url 'top_page' %}">Home</a></li>
+        <li>
+            <span class="fa fa-angle-right"></span>
+        </li>
+
+        <li>
+            <span>大会</span>
+        </li>
+
+    </ul>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+{% endblock %}
+
+{% block content %}
+    <div class="row vertical-gap">
+        <div class="col-lg-8">
+            <!-- START: Tabs  -->
+            <div class="nk-tabs">
+                <!--
+            Additional Classes:
+                .nav-tabs-fill
+        -->
+                <ul class="nav nav-tabs nav-tabs-fill" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#tabs-1-1" role="tab" data-toggle="tab"> 開催予定の大会 </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tabs-1-2" role="tab" data-toggle="tab">　過去の大会</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade show active" id="tabs-1-1">
+                        <div class="nk-gap"></div>
+
+                        <!-- START: Future Competition Tab -->
+                        {% for future_tournament in future_tournaments %}
+                            <div class="nk-blog-post nk-blog-post-border-bottom">
+                                <a href="#" class="nk-post-img">
+                                    <img src="{{ future_tournament.image }}" alt="{{ future_tournament.name }}"
+                                         width="480" height="240">
+                                    <span class="nk-post-categories">
+                                            <span class="bg-main-1">開催予定</span>
+                            </span>
+                                </a>
+                                <div class="nk-gap-1"></div>
+                                <h2 class="nk-post-title h4"><a
+                                        href="{{ future_tournament.website }}">{{ future_tournament.name }}</a></h2>
+                                <div class="nk-post-date mt-10 mb-10">
+                                    <span class="fa fa-calendar"></span> {{ future_tournament.date_start }}
+                                    <!--
+                                    <span class="fa fa-comments"></span> <a href="#">7 comments</a>
+                                    -->
+                                </div>
+                                <div class="nk-post-text">
+                                    <p>{{ future_tournament.description }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="nk-gap"></div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="tabs-1-2">
+                        <div class="nk-gap"></div>
+
+                        <!-- START: Old Competition Tab -->
+                        {% for old_tournament in old_tournaments %}
+                            <div class="nk-blog-post nk-blog-post-border-bottom">
+                                <a href="#" class="nk-post-img">
+                                    <img src="{{ old_tournament.image }}" alt="{{ old_tournament.name }}" width="480"
+                                         height="240">
+                                    <span class="nk-post-categories">
+                                            <span class="bg-main-4">過去</span>
+                            </span>
+                                </a>
+                                <div class="nk-gap-1"></div>
+                                <h2 class="nk-post-title h4"><a
+                                        href="{{ old_tournament.website }}">{{ old_tournament.name }}</a></h2>
+                                <div class="nk-post-date mt-10 mb-10">
+                                    <span class="fa fa-calendar"></span> {{ old_tournament.date_start }}
+                                    <!--
+                                    <span class="fa fa-comments"></span> <a href="#">4 comments</a>
+                                    -->
+                                </div>
+                                <div class="nk-post-text">
+                                    <p>{{ old_tournament.description }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <!-- END: Old Competition Tab -->
+                        <div class="nk-gap"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: Tabs -->
+        <div class="col-lg-4">
+            <!-- START: Sidebar -->
+            <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
+                <div class="nk-widget nk-widget-highlighted">
+                    <h4 class="nk-widget-title">
+                                <span>
+                                    <span class="text-main-1">We</span> Are Social</span>
+                    </h4>
+                    <div class="nk-widget-content">
+                        <ul class="nk-social-links-3 nk-social-links-cols-4">
+                            <li>
+                                <a class="nk-social-twitch" href="#">
+                                    <span class="fa fa-twitch"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nk-social-facebook" href="#">
+                                    <span class="fa fa-facebook"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nk-social-youtube" href="#">
+                                    <span class="fa fa-youtube-play"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nk-social-twitter" href="https://twitter.com/nkdevv" target="_blank">
+                                    <span class="fa fa-twitter"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="nk-widget nk-widget-highlighted">
+                    <h4 class="nk-widget-title">
+                                <span>
+                                    <span class="text-main-1">Next</span> Matches</span>
+                    </h4>
+                    <div class="nk-widget-content">
+                        {% for next_match in next_matches %}
+                            <div class="nk-widget-match">
+                                <div>
+                                    <div class="nk-widget-match-left">
+                                        <div class="nk-widget-match-teams">
+                                            <div class="nk-widget-match-team-logo">
+                                                <img src="{{ next_match.home_team_image }}"
+                                                     alt="{{ next_match.home_team_name }}">
+                                            </div>
+                                            <div class="nk-widget-match-vs">VS</div>
+                                            <div class="nk-widget-match-team-logo">
+                                                <img src="{{ next_match.away_team_image }}"
+                                                     alt="{{ next_match.away_team_name }}">
+                                            </div>
+                                        </div>
+                                        <div class="nk-widget-match-date">{{ next_match.start_date }} {{ next_match.start_time }}</div>
+                                    </div>
+                                    <div class="nk-widget-match-right">
+                                        <div class="nk-match-score">
+                                            Upcoming
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </aside>
+            <!-- END: Sidebar -->
+        </div>
+    </div>
+{% endblock %}

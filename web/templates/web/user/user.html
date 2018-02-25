@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% load static %}
+{% block breadcurmbs %}
+    <ul class="nk-breadcrumbs">
+        <li><a href="{% url 'top_page' %}">Home</a></li>
+        <li>
+            <span class="fa fa-angle-right"></span>
+        </li>
+        <li>
+            <span>{{ profile.username }}</span>
+        </li>
+    </ul>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+{% endblock %}
+{% block content %}
+    <div class="row vertical-gap">
+        <div class="col-lg-8">
+            <!-- START: Teammate Card -->
+            <div class="nk-teammate-card">
+                <div class="nk-teammate-card-photo">
+                    <img src="{{ user.image }}" alt="{{ user.username }}">
+                </div>
+                <div class="nk-teammate-card-info">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <img src="{{ user.image }}" alt="{{ user.username }}">
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong class="h5">Name:</strong>&nbsp;&nbsp;&nbsp;
+                                        </td>
+                                        <td>
+                                            <strong class="h5">{{ user.username }}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong class="h5">Nickname:</strong>&nbsp;&nbsp;&nbsp;
+                                        </td>
+                                        <td>
+                                            <strong class="h5">{{ user.nickname }}</strong>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END: Teammate Card -->
+
+            <!-- START: Biography -->
+            <div class="nk-gap-3"></div>
+            <h3 class="nk-decorated-h-2">
+                <span>Biography</span>
+            </h3>
+            <p> {{ user.description }} </p>
+            <!-- END: Biography -->
+
+            <!-- START: Latest Matches -->
+            <!--
+            <div class="nk-gap-2"></div>
+            <h3 class="nk-decorated-h-2">
+                            <span>
+                                <span class="text-main-1">Latest</span> Matches</span>
+            </h3>
+            <div class="nk-gap"></div>
+            <div class="nk-match">
+                <div class="nk-match-team-left">
+                    <div>
+                        <div class="nk-match-team-logo">
+                            <img src="assets/images/team-1.jpg" alt="">
+                        </div>
+                        <div class="nk-match-team-name">
+                            SK Telecom T1
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-match-status">
+                    <div class="nk-match-status-vs">VS</div>
+                    <div class="nk-match-status-date">Apr 28, 2016 8:00 pm</div>
+                    <div class="nk-match-score bg-danger">
+                        2 : 17
+                    </div>
+                </div>
+                <div class="nk-match-team-right">
+                    <div>
+                        <div class="nk-match-team-name">
+                            Cloud 9
+                        </div>
+                        <div class="nk-match-team-logo">
+                            <img src="assets/images/team-2.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Latest Matches -->
+
+            <!-- START: Upcoming Matches -->
+            <!--
+            <div class="nk-gap-3"></div>
+            <h3 class="nk-decorated-h-2">
+                            <span>
+                                <span class="text-main-1">Upcoming</span> Matches</span>
+            </h3>
+            <div class="nk-gap"></div>
+            <div class="nk-match">
+                <div class="nk-match-team-left">
+                    <div>
+                        <div class="nk-match-team-logo">
+                            <img src="assets/images/team-1.jpg" alt="">
+                        </div>
+                        <div class="nk-match-team-name">
+                            SK Telecom T1
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-match-status">
+                    <div class="nk-match-status-vs">VS</div>
+                    <div class="nk-match-status-date">Apr 28, 2016 8:00 pm</div>
+                    <div class="nk-match-score">
+                        Upcoming
+                    </div>
+                </div>
+                <div class="nk-match-team-right">
+                    <div>
+                        <div class="nk-match-team-name">
+                            Cloud 9
+                        </div>
+                        <div class="nk-match-team-logo">
+                            <img src="assets/images/team-2.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- END: Upcoming Matches -->
+        </div>
+        <div class="col-lg-4">
+            <!-- START: Sidebar -->
+            <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
+                <div class="nk-widget nk-widget-highlighted">
+                    <h4 class="nk-widget-title">
+                                <span>
+                                    <span class="text-main-1">We</span> Are Social</span>
+                    </h4>
+                    <div class="nk-widget-content">
+                        <ul class="nk-social-links-3 nk-social-links-cols-4">
+                            <li>
+                                <a class="nk-social-twitch" href="#">
+                                    <span class="fa fa-twitch"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nk-social-facebook" href="#">
+                                    <span class="fa fa-facebook"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nk-social-youtube" href="#">
+                                    <span class="fa fa-youtube-play"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nk-social-twitter" href="https://twitter.com/nkdevv" target="_blank">
+                                    <span class="fa fa-twitter"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="nk-widget nk-widget-highlighted">
+                    <h4 class="nk-widget-title">
+                                <span>
+                                    <span class="text-main-1">Next</span> Matches</span>
+                    </h4>
+                    <div class="nk-widget-content">
+                        {% for next_match in next_matches %}
+                            <div class="nk-widget-match">
+                                <div>
+                                    <div class="nk-widget-match-left">
+                                        <div class="nk-widget-match-teams">
+                                            <div class="nk-widget-match-team-logo">
+                                                <img src="{{ next_match.home_team_image }}"
+                                                     alt="{{ next_match.home_team_name }}">
+                                            </div>
+                                            <div class="nk-widget-match-vs">VS</div>
+                                            <div class="nk-widget-match-team-logo">
+                                                <img src="{{ next_match.away_team_image }}"
+                                                     alt="{{ next_match.away_team_name }}">
+                                            </div>
+                                        </div>
+                                        <div class="nk-widget-match-date">{{ next_match.start_date }} {{ next_match.start_time }}</div>
+                                    </div>
+                                    <div class="nk-widget-match-right">
+                                        <div class="nk-match-score">
+                                            Upcoming
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </aside>
+            <!-- END: Sidebar -->
+        </div>
+    </div>
+{% endblock %}

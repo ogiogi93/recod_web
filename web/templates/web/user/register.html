@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="nk-main">
+        <div class="container">
+            <div class="nk-gap-1"></div>
+            <div class="row justify-content-md-center">
+                <div class="col-md-3 col-md-offset-5">
+                    <h4 class="mb-0" style="text-align: center;">新規ユーザー登録 </h4>
+                </div>
+            </div>
+            <div class="nk-gap-1"></div>
+            <div class="nk-gap-1"></div>
+            <div class="row justify-content-md-center">
+                <div class="nk-gap-1"></div>
+                <div class="col-md-3 col-md-offset-5">
+                    <form action="{% url 'register' %}" class="nk-form text-white" method="post">
+                        {% csrf_token %}
+                        {{ register_form.as_p }}
+                        <button type="submit" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-block"> 登録</button>
+                    </form>
+                </div>
+            </div>
+            <div class="nk-gap-1"></div>
+        </div>
+    </div>
+{% endblock %}

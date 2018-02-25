@@ -42,7 +42,7 @@ class CustomUser(AbstractBaseUser):
     # Extra
     nickname = models.CharField(max_length=255)
     description = models.TextField()
-    image_url = models.ImageField(upload_to='users', blank=True, default='users/default_face.png')
+    image = models.URLField()
 
     objects = MyUserManager()
     USERNAME_FIELD = 'email'

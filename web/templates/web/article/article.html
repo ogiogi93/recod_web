@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load static %}
+{% block breadcurmbs %}
+    <ul class="nk-breadcrumbs">
+        <li><a href="{% url 'top_page' %}">Home</a></li>
+        <li>
+            <span class="fa fa-angle-right"></span>
+        </li>
+        <li><a href="{% url 'article_list' %}">Article</a></li>
+        <li>
+            <span class="fa fa-angle-right"></span>
+        </li>
+        <li>
+            <span>{{ article.title }}</span>
+        </li>
+    </ul>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+{% endblock %}
+{% block content %}
+    <div class="row vertical-gap">
+    <div class="col-lg-8">
+        <!-- START: Post -->
+        <div class="nk-blog-post nk-blog-post-single">
+            <!-- START: Post Text -->
+            <div class="nk-post-text mt-0">
+                <div class="nk-post-img">
+                    <img src="{{ article.image }}" alt="">
+                </div>
+                <div class="nk-gap-1"></div>
+                <h1 class="nk-post-title h4">{{ article.title }}</h1>
+                <div class="nk-post-by">
+                    <img src="{{ article.user.image_url }}" alt="{{ article.user.nickname }}" class="img-circle"
+                         width="35">
+                    by <a href=""> {{ article.user.nickname }}</a> in {{ article.user.nickname }}
+                    <!--
+                    <div class="nk-post-categories">
+                        <span class="bg-main-1"></span>
+                        <span class="bg-main-2">COD</span>
+                    </div>
+                    -->
+                </div>
+                <div class="nk-gap"></div>
+                <p> {{ article.content }}</p>
+                <div class="nk-gap"></div>
+
+                <span class="h5">シェアする</span>
+                <ul class="nk-social-links-2">
+                    <li>
+                                        <span class="nk-social-facebook" title="Share page on Facebook"
+                                              data-share="facebook">
+                                            <span class="fa fa-facebook"></span>
+                                        </span>
+                    </li>
+                    <li>
+                                        <span class="nk-social-google-plus" title="Share page on Google+"
+                                              data-share="google-plus">
+                                            <span class="fa fa-google-plus"></span>
+                                        </span>
+                    </li>
+                    <li>
+                                        <span class="nk-social-twitter" title="Share page on Twitter"
+                                              data-share="twitter">
+                                            <span class="fa fa-twitter"></span>
+                                        </span>
+                    </li>
+                    <li>
+                                        <span class="nk-social-pinterest" title="Share page on Pinterest"
+                                              data-share="pinterest">
+                                            <span class="fa fa-pinterest-p"></span>
+                                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- END: Post Text -->
+
+        <!-- START: Similar Articles -->
+        <div class="nk-gap-2"></div>
+        <h3 class="nk-decorated-h-2">
+                            <span>
+                                <span class="text-main-1">過去の</span> 記事</span>
+        </h3>
+        <div class="nk-gap"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <!-- START: Post -->
+                <div class="nk-blog-post">
+                    <a href="#" class="nk-post-img">
+                        <img src="{% static 'images/post-3-mid.jpg' %}" alt="">
+                        <span class="nk-post-categories">
+                                            <span class="bg-main-2">大会</span>
+                                        </span>
+
+                    </a>
+                    <div class="nk-gap"></div>
+                    <h2 class="nk-post-title h4"><a href="#">関連記事</a></h2>
+                </div>
+                <!-- END: Post -->
+            </div>
+        </div>
+        <!-- END: Similar Articles -->
+    </div>
+    <!-- END: Post -->
+{% endblock %}
