@@ -113,11 +113,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
-
-STATIC_URL = '/static/'
-
 MEDIA_ROOT = (
     os.path.join(BASE_DIR, "static/images")
 )
@@ -149,6 +144,4 @@ AWS_LOCATION = STATIC_SETTINGS['AWS_LOCATION']
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
-
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'recod_web.storage_backends.MediaStorage'
+STATIC_URL = '/static/'
