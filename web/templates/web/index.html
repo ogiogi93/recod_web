@@ -5,8 +5,8 @@
     <div class="nk-image-slider" data-autoplay="8000">
         {% for topic_article in topic_articles %}
             <div class="nk-image-slider-item">
-                <img src="{{ topic_article.image }}" alt="" class="nk-image-slider-img"
-                     data-thumb="{{ topic_article.image }}">
+                <img src="{{ topic_article.thumbnail_url }}" alt="" class="nk-image-slider-img"
+                     data-thumb="{{ topic_article.thumbnail_url }}">
                 <div class="nk-image-slider-content">
                     <h3 class="h4">{{ topic_article.title }} </h3>
                     <p class="text-white">{{ topic_article.content }}</p>
@@ -32,10 +32,10 @@
                     {% for new_article in new_articles %}
                         <div class="nk-news-box-item nk-news-box-item-active">
                             <div class="nk-news-box-item-img">
-                                <img src="{{ new_article.image }}"
+                                <img src="{{ new_article.thumbnail_url }}"
                                      alt="{{ new_article.title }}">
                             </div>
-                            <img src="{{ new_article.image }}"
+                            <img src="{{ new_article.thumbnail_url }}"
                                  alt="{{ new_article.title }}"
                                  class="nk-news-box-item-full-img">
                             <h3 class="nk-news-box-item-title">{{ new_article.title }}</h3>
@@ -62,8 +62,7 @@
             <div class="nano">
                 <div class="nano-content">
                     <!-- There will be inserted info about selected news-->
-                    <div class="nk-news-box-item-image"
-                         style="background-image: url({% static 'images/post-1.jpg' %});">
+                    <div class="nk-news-box-item-image">
                         <!--
                                 <span class="nk-news-box-item-categories">
                                     <span class="bg-main-4"></span>
@@ -90,7 +89,7 @@
                     <!-- START: Post -->
                     <div class="nk-blog-post">
                         <a href="{{ media_article.url }}" class="nk-post-img">
-                            <img src="{{ media_article.image }}" alt="{{ media_article.title }}">
+                            <img src="{{ media_article.thumbnail_url }}" alt="{{ media_article.title }}">
                             <span class="nk-post-categories">
                                     <span class="bg-main-5">{{ media_article.user.nickname }}</span>
                                 </span>

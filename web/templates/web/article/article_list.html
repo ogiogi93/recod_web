@@ -29,7 +29,7 @@
                             <!-- START: Post -->
                             <div class="nk-blog-post">
                                 <a href="{% url 'article' article_id=article.id %}" class="nk-post-img">
-                                    <img src="{{ article.image }}"
+                                    <img src="{{ article.thumbnail_url }}"
                                          alt="{{ article.title }}">
                                     <span class="nk-post-comments-count">4</span>
                                 </a>
@@ -38,10 +38,10 @@
                                     <a href="{% url 'article' article_id=article.id %}">{{ article.tilte }}</a>
                                 </h2>
                                 <div class="nk-post-by">
-                                    <img src="{{ article.user.image_url }}" alt="" class="img-circle"
+                                    <img src="{{ article.writer_image }}" alt="" class="img-circle"
                                          width="35">
-                                    by <a href="#">{{ article.user.nickname }}</a>
-                                    in {{ article.created_at.date }}
+                                    by <a href="{% url 'user_page' user_id=article.writer_id %}">{{ article.writer_name }}</a>
+                                    in {{ article.published_date }}
                                 </div>
                                 <div class="nk-gap"></div>
                                 <div class="nk-post-text">

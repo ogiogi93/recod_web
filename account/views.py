@@ -5,6 +5,27 @@ from django.views.decorators.http import require_POST
 from account.forms import LoginForm, login_form, RegisterForm
 from account.models import CustomUser as User
 from competition.repository.tournament import get_next_matches
+from recod_web.settings import AWS_S3_CUSTOM_DOMAIN
+
+
+class UserEntity:
+    def __init__(self, user):
+        self._user = user
+
+    def id(self):
+        return self._user.id
+
+    def username(self):
+        return self._user.username
+
+    def nickname(self):
+        return self._user.nickname
+
+    def description(self):
+        return self._user.description
+
+    def image(self):
+        return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._user.image)
 
 
 def user_page(request, user_id):
@@ -20,7 +41,7 @@ def user_page(request, user_id):
             'login_form': login_form,
         })
     return render(request, 'web/user/user.html', context={
-        'profile': User.objects.get(pk=user_id),
+        'user': UserEntity(User.objects.get(pk=user_id)),
         'login_form': login_form,
         'next_matches': get_next_matches()
     })

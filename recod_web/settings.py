@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
     'competition',
     'account',
     'article',
@@ -115,12 +116,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_ROOT = '/var/www/recod_web/staticfiles'
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
 
 MEDIA_ROOT = (
     os.path.join(BASE_DIR, "static/images")
@@ -137,3 +133,22 @@ try:
     from .static_settings import *
 except ImportError:
     raise
+
+
+AWS_REGION = STATIC_SETTINGS['AWS_REGION']
+AWS_ACCESS_KEY_ID = STATIC_SETTINGS['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = STATIC_SETTINGS['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = STATIC_SETTINGS['AWS_S3_BUCKET_NAME']
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = STATIC_SETTINGS['AWS_LOCATION']
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'recod_web.storage_backends.MediaStorage'

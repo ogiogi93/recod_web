@@ -1,6 +1,7 @@
 from django.utils import timezone
 
 from competition.infrastructure.tournament import MatchTeam, Match, Tournament
+from recod_web.settings import AWS_S3_CUSTOM_DOMAIN
 
 
 class MatchEntity:
@@ -11,7 +12,7 @@ class MatchEntity:
         return self._match_teams[0].match.tournament.name
 
     def tournament_image(self):
-        return self._match_teams[0].match.tournament.image or 'https://talentech.co.za/assets/img/default-logo.png'
+        return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._match_teams[0].match.tournament.image)
 
     def status(self):
         return self._match_teams[0].match.status
@@ -26,7 +27,7 @@ class MatchEntity:
         return self._match_teams[0].team.name
 
     def home_team_image(self):
-        return self._match_teams[0].team.image or 'https://talentech.co.za/assets/img/default-logo.png'
+        return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._match_teams[0].team.image)
 
     def home_team_score(self):
         return self._match_teams[0].score
@@ -35,10 +36,33 @@ class MatchEntity:
         return self._match_teams[1].team.name
 
     def away_team_image(self):
-        return self._match_teams[1].team.image or 'https://talentech.co.za/assets/img/default-logo.png'
+        return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._match_teams[1].team.image)
 
     def away_team_score(self):
         return self._match_teams[1].score
+
+
+class TournamentEntity:
+    def __init__(self, tournament):
+        self._tournament = tournament
+
+    def id(self):
+        return self._tournament.id
+
+    def name(self):
+        return self._tournament.name
+
+    def date_start(self):
+        return self._tournament.date_start
+
+    def dscription(self):
+        return self._tournament.description
+
+    def image(self):
+        return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._tournament.image)
+
+    def website(self):
+        return self._tournament.website
 
 
 def get_latest_match():
@@ -89,7 +113,8 @@ def get_future_tournaments(limit=5):
     :param int limit:
     :rtype:
     """
-    return Tournament.objects.filter(is_active=True, date_start__gte=timezone.now())[:limit]
+    return [TournamentEntity(t)
+            for t in Tournament.objects.filter(is_active=True, date_start__gte=timezone.now())[:limit]]
 
 
 def get_old_tournaments(limit=10):
@@ -98,4 +123,5 @@ def get_old_tournaments(limit=10):
     :param limit:
     :return:
     """
-    return Tournament.objects.filter(is_active=True, date_start__lt=timezone.now())[:limit]
+    return [TournamentEntity(t)
+            for t in Tournament.objects.filter(is_active=True, date_start__lt=timezone.now())[:limit]]
