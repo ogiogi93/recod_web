@@ -19,134 +19,65 @@
 {% endblock %}
 {% block content %}
     <div class="row vertical-gap">
-        <div class="col-lg-8">
-
-            <!-- START: Posts Grid -->
-            <div class="nk-blog-grid">
-                <div class="row">
-                    {% for article in articles %}
-                        <div class="col-md-6">
-                            <!-- START: Post -->
-                            <div class="nk-blog-post">
-                                <a href="{% url 'article' article_id=article.id %}" class="nk-post-img">
-                                    <img src="{{ article.thumbnail_url }}"
-                                         alt="{{ article.title }}">
-                                    <span class="nk-post-comments-count">4</span>
-                                </a>
-                                <div class="nk-gap"></div>
-                                <h2 class="nk-post-title h4">
-                                    <a href="{% url 'article' article_id=article.id %}">{{ article.tilte }}</a>
-                                </h2>
-                                <div class="nk-post-by">
-                                    <img src="{{ article.writer_image }}" alt="" class="img-circle"
-                                         width="35">
-                                    by <a href="{% url 'user_page' user_id=article.writer_id %}">{{ article.writer_name }}</a>
-                                    in {{ article.published_date }}
-                                </div>
-                                <div class="nk-gap"></div>
-                                <div class="nk-post-text">
-                                    <p>{{ article.content }}</p>
-                                </div>
-                                <div class="nk-gap"></div>
-                                <a href="{% url 'article' article_id=article.id %}"
-                                   class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Read
-                                    More</a>
-                            </div>
-                            <!-- END: Post -->
-                        </div>
+        <div class="col-lg-12">
+            <!-- START: Tabs  -->
+            <div class="nk-tabs">
+                <!--
+            Additional Classes:
+                .nav-tabs-fill
+            -->
+                <ul class="nav nav-tabs nav-tabs-fill" role="tablist">
+                    {% for game in games %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#{{ game.short_name }}" role="tab"
+                               data-toggle="tab">{{ game.short_name }}</a>
+                        </li>
                     {% endfor %}
+                </ul>
+                <div class="tab-content">
+                    {% for game in games %}
+                        {% if game.id == default_select_game_id %}
+                            <div role="tabpanel" class="tab-pane fade show active" id="{{ game.short_name }}">
+                        {% else %}
+                            <div role="tabpanel" class="tab-pane fade" id="{{ game.short_name }}">
+                        {% endif %}
+                    <div class="nk-gap"></div>
+                    <!-- START: Tab -->
+                    <div class="row">
+                        {% for article in articles %}
+                            {% if article.game_id == game.id %}
+                                <div class="col-lg-4">
+                                    <div class="nk-blog-post nk-blog-post-border-bottom">
+                                        <a href="{{ article.url }}" class="nk-post-img">
+                                            <img src="{{ article.thumbnail_url }}" alt="{{ article.title }}"
+                                                 width="320"
+                                                 height="auto">
 
-                    <!-- START: Pagination -->
-                    <!--
-                    <div class="nk-pagination nk-pagination-center">
-                        <a href="#" class="nk-pagination-prev">
-                            <span class="ion-ios-arrow-back"></span>
-                        </a>
-                        <nav>
-                            <a class="nk-pagination-current" href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <span>...</span>
-                            <a href="#">14</a>
-                        </nav>
-                        <a href="#" class="nk-pagination-next">
-                            <span class="ion-ios-arrow-forward"></span>
-                        </a>
-                    </div>
-                    <!-- END: Pagination -->
-                </div>
-                <!-- END: Posts Grid -->
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <!-- START: Sidebar -->
-            <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
-                <div class="nk-widget nk-widget-highlighted">
-                    <h4 class="nk-widget-title">
-                                <span>
-                                    <span class="text-main-1">We</span> Are Social</span>
-                    </h4>
-                    <div class="nk-widget-content">
-                        <ul class="nk-social-links-3 nk-social-links-cols-4">
-                            <li>
-                                <a class="nk-social-twitch" href="#">
-                                    <span class="fa fa-twitch"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="nk-social-facebook" href="#">
-                                    <span class="fa fa-facebook"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="nk-social-youtube" href="#">
-                                    <span class="fa fa-youtube-play"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="nk-social-twitter" href="https://twitter.com/nkdevv" target="_blank">
-                                    <span class="fa fa-twitter"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="nk-widget nk-widget-highlighted">
-                    <h4 class="nk-widget-title">
-                                <span>
-                                    <span class="text-main-1">Next</span> Matches</span>
-                    </h4>
-                    <div class="nk-widget-content">
-                        {% for next_match in next_matches %}
-                            <div class="nk-widget-match">
-                                <div>
-                                    <div class="nk-widget-match-left">
-                                        <div class="nk-widget-match-teams">
-                                            <div class="nk-widget-match-team-logo">
-                                                <img src="{{ next_match.home_team_image }}"
-                                                     alt="{{ next_match.home_team_name }}">
-                                            </div>
-                                            <div class="nk-widget-match-vs">VS</div>
-                                            <div class="nk-widget-match-team-logo">
-                                                <img src="{{ next_match.away_team_image }}"
-                                                     alt="{{ next_match.away_team_name }}">
-                                            </div>
+                                            <span class="nk-post-categories">
+                                            <span class="bg-main-1">{{ article.game_name }}</span>
+                                        </span>
+
+                                        </a>
+                                        <div class="nk-gap-1"></div>
+                                        <h2 class="nk-post-title h4"><a
+                                                href="{{ article.url }}">{{ article.title }}</a>
+                                        </h2>
+                                        <div class="nk-post-date mt-10 mb-10">
+                                            <span class="fa fa-calendar"></span> {{ article.created_at }}
                                         </div>
-                                        <div class="nk-widget-match-date">{{ next_match.start_date }} {{ next_match.start_time }}</div>
-                                    </div>
-                                    <div class="nk-widget-match-right">
-                                        <div class="nk-match-score">
-                                            Upcoming
+                                        <div class="nk-post-text">
+                                            {{ article.content }}
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         {% endfor %}
                     </div>
+                    </div>
+                    {% endfor %}
+                    </div>
                 </div>
-            </aside>
-            <!-- END: Sidebar -->
+            </div>
         </div>
     </div>
 {% endblock %}

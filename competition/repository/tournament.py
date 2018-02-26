@@ -1,6 +1,6 @@
 from django.utils import timezone
 
-from competition.infrastructure.tournament import MatchTeam, Match, Tournament
+from competition.models import MatchTeam, Match, Tournament
 from competition.entity.tournament import MatchEntity, TournamentEntity
 
 

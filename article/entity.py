@@ -12,7 +12,7 @@ class ArticleEntity:
         return self._article.title
 
     def url(self):
-        return self._article.url
+        return self._article.url or '/article/{}/'.format(self.id())
 
     def thumbnail_url(self):
         return self._article.thumbnail_url
@@ -23,6 +23,17 @@ class ArticleEntity:
     def content(self):
         return self._article.content
 
+    def short_content(self):
+        if len(self._article.content) >= 50:
+            return self._article.content[:50] + '...'
+        return self._article.content
+
+    def game_id(self):
+        return self._article.game_id
+
+    def game_name(self):
+        return self._article.game.discipline.short_name
+
     def writer_id(self):
         return self._article.user.id
 
@@ -31,3 +42,14 @@ class ArticleEntity:
 
     def writer_image(self):
         return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._article.user.image)
+
+
+class GameEntity:
+    def __init__(self, game):
+        self._game = game
+
+    def id(self):
+        return self._game.id
+
+    def short_name(self):
+        return self._game.discipline.short_name

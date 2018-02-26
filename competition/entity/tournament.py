@@ -52,11 +52,23 @@ class TournamentEntity:
     def date_start(self):
         return self._tournament.date_start
 
-    def dscription(self):
+    def description(self):
         return self._tournament.description
+
+    def rules(self):
+        return self._tournament.rules
+
+    def prize(self):
+        return self._tournament.prize
 
     def image(self):
         return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._tournament.image)
 
     def website(self):
         return self._tournament.website
+
+    def game(self):
+        return self._tournament.game.discipline.name
+
+    def platform(self):
+        return self._tournament.game.platform.display_name

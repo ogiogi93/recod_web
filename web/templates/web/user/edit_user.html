@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="nk-gap-1"></div>
+        <div class="nk-widget">
+            <h4 class="nk-widget-title">
+                <span class="text-main-1"></span>
+                プロフィールを修正する
+            </h4>
+            <div class="nk-widget-content">
+                <form method="post" class="nk-form" action="{% url 'edit_user_page' user_id=user.id %}">
+                    <div class="form-group">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                    </div>
+                    <button class="btn btn-primary pull-right" type="submit"> 更新 </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="nk-gap-2"></div>
+{% endblock %}

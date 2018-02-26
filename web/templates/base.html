@@ -120,19 +120,16 @@
             </div>
             <div class="nk-contacts-right">
                 <ul class="nk-contacts-icons">
-                        {% if user.is_authenticated %}
-                            <li><a href="{% url 'logout' %}"> ログアウト </a></li>
-                            <li><a href="{% url 'user_page' user_id=user.id %}"><span
-                                    class="fa fa-user">{{ user.username }} </span></a></li>
-                        {% endif %}
-
-                        {% if not user.is_authenticated %}
-                            <li><a href="{% url 'register_page' %}"> 新規登録 </a>
-                            <li><a href="#" data-toggle="modal" data-target="#modalLogin">
-                                <span class="fa fa-user"> ログイン </span>
-                            </a></li>
-                        {% endif %}
-                    </li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'logout' %}"> ログアウト </a></li>
+                        <li><a href="{% url 'user_page' user_id=user.id %}"><span
+                                class="fa fa-user">{{ user.username }} </span></a></li>
+                    {% else %}
+                        <li><a href="{% url 'register_page' %}"> 新規登録 </a>
+                        <li><a href="#" data-toggle="modal" data-target="#modalLogin">
+                            <span class="fa fa-user"> ログイン </span>
+                        </a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

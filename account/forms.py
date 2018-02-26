@@ -57,18 +57,12 @@ class LoginForm(AuthenticationForm):
         self.fields['password'].widget.attrs['class'] = 'form-control'
         self.fields['password'].widget.attrs['placeholder'] = 'password'
 
+
 login_form = LoginForm()
+
 
 class EditUserProfile(forms.ModelForm):
     error_css_class = 'has-error'
-    is_admin = forms.BooleanField(required=False, label='Adminユーザー',
-                                  widget=forms.CheckboxInput(attrs={
-                                      'class': 'radio'}))
-    username = forms.CharField(required=True, label='ユーザーネーム',
-                               widget=forms.TextInput(attrs={
-                                   'class': 'form-control'}),
-                               error_messages={
-                                   'required': '新しいユーザーネームを入力して下さい'})
     nickname = forms.CharField(required=True, label='ニックネーム',
                                widget=forms.TextInput(attrs={
                                    'class': 'form-control'}),
@@ -91,7 +85,7 @@ class EditUserProfile(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('is_admin', 'username', 'nickname', 'email', 'description', 'image')
+        fields = ('nickname', 'email', 'description', 'image')
 
 
 class EmailChangeForm(forms.Form):

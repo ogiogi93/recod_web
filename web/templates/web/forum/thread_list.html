@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block breadcurmbs %}
+    <!-- START: Breadcrumbs -->
+    <ul class="nk-breadcrumbs">
+        <li><a href="{% url 'top_page' %}">Home</a></li>
+        <li>
+            <span class="fa fa-angle-right"></span>
+        </li>
+        <li><a href="{% url 'forum_page' %}">Forum</a></li>
+        <li>
+            <span class="fa fa-angle-right"></span>
+        </li>
+        <li><a href="{% url 'topic_page' forum_id=forum_id %}">Topic</a></li>
+        <li>
+            <span>{{ topic_title }}</span>
+        </li>
+    </ul>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+{% endblock %}
+{% block content %}
+    <div class="container">
+
+        <!-- START: Pagination -->
+        <div class="row">
+            <div class="col-md-3 push-md-9 text-right">
+                <a href="#forum-reply" class="nk-btn nk-btn-rounded nk-btn-color-white nk-anchor">Reply</a>
+            </div>
+        </div>
+        <!-- END: Pagination -->
+
+        <div class="nk-gap-2"></div>
+
+        <!-- START: Forums List -->
+        <ul class="nk-forum nk-forum-topic">
+            {% for thread in threads %}
+                <li>
+                    <div class="nk-forum-topic-author">
+                        <img src="{{ thread.user_image }}" alt="{{ thread.nick_name }}">
+                        <div class="nk-forum-topic-author-name" title="{{ thread.user_name }}">
+                            <a href="{% url 'user_page' user_id=thread.user_id %}">{{ thread.nick_name }}</a>
+                        </div>
+                        <div class="nk-forum-topic-author-since">
+                            Member since {{ thread.user_joined_date }}
+                        </div>
+                    </div>
+                    <div class="nk-forum-topic-content">
+                        {{ thread.description }}
+                    </div>
+                    <div class="nk-forum-topic-footer">
+                        <span class="nk-forum-topic-date">{{ thread.post_date }}</span>
+
+                        <span class="nk-forum-action-btn">
+                            <a href="#">
+                                <span class="fa fa-flag"></span> Spam</a>
+                        </span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <!-- END: Forums List -->
+
+        <div class="nk-gap-2"></div>
+
+        <!-- START: Pagination -->
+        <div class="nk-pagination nk-pagination-left">
+            <a href="#" class="nk-pagination-prev">
+                <span class="ion-ios-arrow-back"></span>
+            </a>
+            <nav>
+                <a class="nk-pagination-current" href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <span>...</span>
+                <a href="#">14</a>
+            </nav>
+            <a href="#" class="nk-pagination-next">
+                <span class="ion-ios-arrow-forward"></span>
+            </a>
+        </div>
+        <!-- END: Pagination -->
+
+        <div id="forum-reply"></div>
+        <div class="nk-gap-4"></div>
+
+        <!-- START: Reply -->
+        {% if user.is_authenticated %}
+            <div class="nk-gap-1"></div>
+            <div class="nk-widget">
+                <h4 class="nk-widget-title">
+                    <span class="text-main-1"></span>
+                    リプライ
+                </h4>
+                <div class="nk-widget-content">
+                    <form method="post" class="nk-form" action="{% url 'create_thread' forum_id=forum_id topic_id=topic_id %}">
+                        <div class="form-group">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                        </div>
+                        <button class="btn btn-primary pull-right" type="submit"> 投稿</button>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+        <!-- END: Reply -->
+    </div>
+{% endblock %}
