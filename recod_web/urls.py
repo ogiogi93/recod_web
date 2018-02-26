@@ -19,8 +19,9 @@ from django.conf.urls import include, url
 
 import account.urls as account_urls
 import article.urls as article_urls
-import competition.urls as competition_urls
-import team.urls as team_urls
+import competition.urls.team as team_urls
+import competition.urls.tournament as tournament_urls
+import forum.urls as forum_urls
 import video.urls as video_urls
 from web.views import *
 
@@ -30,10 +31,10 @@ urlpatterns = [
     url(r'^$', top, name='top_page'),
     url(r'^', include(account_urls)),
     url(r'^', include(article_urls)),
-    url(r'^', include(competition_urls)),
+    url(r'^', include(tournament_urls)),
     url(r'^', include(team_urls)),
     url(r'^', include(video_urls)),
-    url(r'^forum/$', forum, name='forum_page'),
+    url(r'^', include(forum_urls)),
     # Information Page
     url(r'^contact/$', contact, name='contact_page'),
 ]

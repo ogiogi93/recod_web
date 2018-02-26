@@ -1,10 +1,13 @@
 from article.models import Article
+from article.entity import ArticleEntity
 
 
-def get_new_articles(limit=20):
+def get_new_articles(enabled_game_ids, limit=20):
     """
-    最新記事を返す
+    有効なゲームの最新記事を返す
+    :param Set(int) enabled_game_ids:
     :param int limit:
-    :rtype List[Article]:
+    :rtype List[ArticleEntity]:
     """
-    return Article.objects.select_related('user').order_by('-created_at')[:limit]
+    return [ArticleEntity(a) for a in Article.objects.select_related('user').filter(
+        game_id__in=enabled_game_ids, is_active=True).order_by('-created_at')[:limit]]

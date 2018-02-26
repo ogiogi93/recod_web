@@ -57,7 +57,35 @@ class LoginForm(AuthenticationForm):
         self.fields['password'].widget.attrs['class'] = 'form-control'
         self.fields['password'].widget.attrs['placeholder'] = 'password'
 
+
 login_form = LoginForm()
+
+
+class EditUserProfile(forms.ModelForm):
+    error_css_class = 'has-error'
+    nickname = forms.CharField(required=True, label='ニックネーム',
+                               widget=forms.TextInput(attrs={
+                                   'class': 'form-control'}),
+                               error_messages={
+                                   'required': '新しいニックネームを入力して下さい'})
+    email = forms.EmailField(required=True, max_length=254, label='メールアドレス',
+                             widget=forms.EmailInput(attrs={
+                                 'class': 'form-control'}),
+                             error_messages={
+                                 'required': '正しいメールアドレスを入力して下さい'})
+    image = forms.ImageField(required=False, label='プロフィール画像',
+                             widget=forms.FileInput(attrs={
+                                 'class': 'form-control'}
+                             ))
+    description = forms.CharField(required=False, label='自己紹介文',
+                                  widget=forms.Textarea(attrs={
+                                      'class': 'form-control'}),
+                                  error_messages={
+                                      'required': '自己紹介文を入力して下さい'})
+
+    class Meta:
+        model = User
+        fields = ('nickname', 'email', 'description', 'image')
 
 
 class EmailChangeForm(forms.Form):

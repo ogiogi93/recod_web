@@ -6,8 +6,9 @@
         <li>
             <span class="fa fa-angle-right"></span>
         </li>
+        <li><a href="{% url 'team_list_page' %}">Team</a></li>
         <li>
-            <span>{{ profile.username }}</span>
+            <span>{{ team.name }}</span>
         </li>
     </ul>
     <div class="nk-gap-1"></div>
@@ -23,39 +24,55 @@
                         <tbody>
                         <tr>
                             <td>
-                                <img src="{{ profile.image }}" alt="{{ profile.username }}">
+                                <img src="{{ team.image }}" alt="{{ team.name }}">
                             </td>
                             <td>
                                 <table>
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <strong class="h5">Name:</strong>&nbsp;&nbsp;&nbsp;
+                                            <strong class="h5">チーム名:</strong>&nbsp;&nbsp;&nbsp;
                                         </td>
                                         <td>
-                                            <strong class="h5">{{ profile.username }}</strong>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong class="h5">Nickname:</strong>&nbsp;&nbsp;&nbsp;
-                                        </td>
-                                        <td>
-                                            <strong class="h5">{{ profile.nickname }}</strong>
+                                            <strong class="h5">{{ team.name }}</strong>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <strong class="h5">所属チーム:</strong>&nbsp;&nbsp;&nbsp;
+                                            <strong class="h5">活動ゲーム:</strong>&nbsp;&nbsp;&nbsp;
+                                        </td>
+                                        <td>
+                                            <strong class="h5">{{ team.game }}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong class="h5">活動プラットフォーム:</strong>&nbsp;&nbsp;&nbsp;
+                                        </td>
+                                        <td>
+                                            <strong class="h5">{{ team.platform }}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong class="h5">メンバー:</strong>&nbsp;&nbsp;&nbsp;
                                         </td>
                                         <td>
                                             <strong class="h5">
-                                                {% for team in profile.teams %}
-                                                    <a href="#">
-                                                        {{ team.name }}
+                                                {% for member in team.members %}
+                                                    <a href="{% url 'user_page' user_id=member.id %}">
+                                                        {{ member.nickname }}
                                                     </a>
                                                 {% endfor %}
                                             </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong class="h5">Website:</strong>&nbsp;&nbsp;&nbsp;
+                                        </td>
+                                        <td>
+                                            <strong class="h5">{{ team.website }}</strong>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -73,17 +90,17 @@
             <h3 class="nk-decorated-h-2">
                 <span>Biography</span>
             </h3>
-            <p> {{ profile.description }} </p>
+            <p> {{ team.description }} </p>
             <!-- END: Biography -->
 
             <!-- START: Latest Matches -->
-            <!--
             <div class="nk-gap-2"></div>
             <h3 class="nk-decorated-h-2">
                             <span>
                                 <span class="text-main-1">Latest</span> Matches</span>
             </h3>
             <div class="nk-gap"></div>
+        <!--
             <div class="nk-match">
                 <div class="nk-match-team-left">
                     <div>
@@ -154,16 +171,6 @@
             </div>
 
             <!-- END: Upcoming Matches -->
-
-            {% if user.id == profile.id %}
-                <div class="nk-gap-1"></div>
-                <a href="{% url 'edit_user_page' user_id=user.id %}" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-info pull-right">
-                    プロフィールを編集する
-                </a>
-                <a href="{% url 'belong_team_page' %}" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-info pull-right">
-                    所属チームを編集する
-                </a>
-            {% endif %}
         </div>
         <div class="col-lg-4">
             <!-- START: Sidebar -->

@@ -2,14 +2,16 @@ from django.db import models
 from django.utils import timezone
 
 from account.models import CustomUser as User
+from competition.models import Game
 
 
 class Article(models.Model):
     id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=False)
+    game = models.ForeignKey(Game, on_delete=False)
     title = models.CharField(max_length=255)
     content = models.TextField()
-    image = models.URLField(max_length=255)
+    thumbnail_url = models.URLField()
     original_image = models.URLField(max_length=255)
     url = models.URLField(max_length=255, default=None)
     is_active = models.BooleanField(default=True)

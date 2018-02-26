@@ -1,102 +1,109 @@
 {% extends "base.html" %}
+{% load static %}
 {% block breadcurmbs %}
     <ul class="nk-breadcrumbs">
         <li><a href="{% url 'top_page' %}">Home</a></li>
         <li>
             <span class="fa fa-angle-right"></span>
         </li>
-
+        <li><a href="{% url 'tournament_list_page' %}">Tournament</a></li>
         <li>
-            <span>大会</span>
+            <span>{{ tournament.name }}</span>
         </li>
-
     </ul>
     <div class="nk-gap-1"></div>
     <!-- END: Breadcrumbs -->
 {% endblock %}
-
 {% block content %}
     <div class="row vertical-gap">
         <div class="col-lg-8">
-            <!-- START: Tabs  -->
-            <div class="nk-tabs">
-                <!--
-            Additional Classes:
-                .nav-tabs-fill
-        -->
-                <ul class="nav nav-tabs nav-tabs-fill" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#tabs-1-1" role="tab" data-toggle="tab"> 開催予定の大会 </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#tabs-1-2" role="tab" data-toggle="tab">　過去の大会</a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade show active" id="tabs-1-1">
-                        <div class="nk-gap"></div>
-
-                        <!-- START: Future Competition Tab -->
-                        {% for future_tournament in future_tournaments %}
-                            <div class="nk-blog-post nk-blog-post-border-bottom">
-                                <a href="#" class="nk-post-img">
-                                    <img src="{{ future_tournament.image }}" alt="{{ future_tournament.name }}"
-                                         width="480" height="240">
-                                    <span class="nk-post-categories">
-                                            <span class="bg-main-1">開催予定</span>
-                            </span>
-                                </a>
-                                <div class="nk-gap-1"></div>
-                                <h2 class="nk-post-title h4"><a
-                                        href="{{ future_tournament.website }}">{{ future_tournament.name }}</a></h2>
-                                <div class="nk-post-date mt-10 mb-10">
-                                    <span class="fa fa-calendar"></span> {{ future_tournament.date_start }}
-                                    <!--
-                                    <span class="fa fa-comments"></span> <a href="#">7 comments</a>
-                                    -->
-                                </div>
-                                <div class="nk-post-text">
-                                    <p>{{ future_tournament.description }}</p>
-                                </div>
-                            </div>
-                        {% endfor %}
-                        <div class="nk-gap"></div>
+            <!-- START: Tournament -->
+            <div class="nk-blog-post nk-blog-post-single">
+                <!-- START: Tournament Text -->
+                <div class="nk-post-text mt-0">
+                    <div class="nk-post-img">
+                        <img src="{{ tournament.image }}" alt="{{ tournament.name }}" width="auto" height="280">
                     </div>
-
-                    <div role="tabpanel" class="tab-pane fade" id="tabs-1-2">
-                        <div class="nk-gap"></div>
-
-                        <!-- START: Old Competition Tab -->
-                        {% for old_tournament in old_tournaments %}
-                            <div class="nk-blog-post nk-blog-post-border-bottom">
-                                <a href="#" class="nk-post-img">
-                                    <img src="{{ old_tournament.image }}" alt="{{ old_tournament.name }}" width="480"
-                                         height="240">
-                                    <span class="nk-post-categories">
-                                            <span class="bg-main-4">過去</span>
-                            </span>
-                                </a>
-                                <div class="nk-gap-1"></div>
-                                <h2 class="nk-post-title h4"><a
-                                        href="{{ old_tournament.website }}">{{ old_tournament.name }}</a></h2>
-                                <div class="nk-post-date mt-10 mb-10">
-                                    <span class="fa fa-calendar"></span> {{ old_tournament.date_start }}
-                                    <!--
-                                    <span class="fa fa-comments"></span> <a href="#">4 comments</a>
-                                    -->
-                                </div>
-                                <div class="nk-post-text">
-                                    <p>{{ old_tournament.description }}</p>
-                                </div>
-                            </div>
-                        {% endfor %}
-                        <!-- END: Old Competition Tab -->
-                        <div class="nk-gap"></div>
+                    <div class="nk-gap-1"></div>
+                    <h1 class="nk-post-title h4">{{ tournament.name }}</h1>
+                    <div class="nk-post-by">
+                        <div class="nk-post-categories">
+                            <span class="bg-main-1">{{ tournament.game }}</span>
+                            <span class="bg-main-2">{{ tournament.platform }}</span>
+                        </div>
                     </div>
+                    <div class="nk-gap-1"></div>
+                    <ul class="nk-social-links-2" style="text-align: right">
+                        <li>
+                                        <span class="nk-social-facebook" title="Share page on Facebook"
+                                              data-share="facebook">
+                                            <span class="fa fa-facebook"></span>
+                                        </span>
+                        </li>
+                        <li>
+                                        <span class="nk-social-google-plus" title="Share page on Google+"
+                                              data-share="google-plus">
+                                            <span class="fa fa-google-plus"></span>
+                                        </span>
+                        </li>
+                        <li>
+                                        <span class="nk-social-twitter" title="Share page on Twitter"
+                                              data-share="twitter">
+                                            <span class="fa fa-twitter"></span>
+                                        </span>
+                        </li>
+                        <li>
+                                        <span class="nk-social-pinterest" title="Share page on Pinterest"
+                                              data-share="pinterest">
+                                            <span class="fa fa-pinterest-p"></span>
+                                        </span>
+                        </li>
+                    </ul>
+                    <p> {{ tournament.descroption }}</p>
+                    <div class="nk-gap"></div>
+
+                    <h3 class="nk-post-title h4"> 賞品 </h3>
+                    <p> {{ tournament.prize }}</p>
+                    <div class="nk-gap"></div>
+
+                    <h3 class="nk-post-title h4"> ルール </h3>
+                    <p> {{ tournament.rules }}</p>
+                    <div class="nk-gap"></div>
+
                 </div>
             </div>
+            <!-- END: Tournament text -->
+
+            <!-- START: Participate Teams -->
+            <h3 class="nk-post-title h4"> 参加チーム </h3>
+            <div class="nk-gap"></div>
+            {% for team in participate_teams %}
+                <div class="nk-team">
+                    <div class="nk-team-logo">
+                        <img src="{{ team.image }}" alt="{{ team.name }}">
+                    </div>
+                    <div class="nk-team-cont">
+                        <a href="{% url 'team_page' team_id=team.id %}">
+                            <h3 class="h5 mb-20">
+                                <span class="text-main-1">Team:</span> {{ team.name }}
+                            </h3>
+                        </a>
+                        <h4 class="h6 mb-5">Members:</h4>
+                        {% for member in team.members %}
+                            <a href="{% url 'user_page' user_id=member.id %}">
+                                {{ member.nickname }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                    <a href="{% url 'team_page' team_id=team.id %}"
+                       class="nk-btn nk-btn-rounded nk-btn-color-main-1">
+                        more info
+                    </a>
+                </div>
+            {% endfor %}
+            <!-- END: Participate Teams -->
         </div>
-        <!-- END: Tabs -->
+        <!-- END: Tournament -->
         <div class="col-lg-4">
             <!-- START: Sidebar -->
             <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">

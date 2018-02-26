@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 from account.forms import login_form
 from article.repository import get_new_articles
+from competition.models import Game
 from competition.repository.tournament import get_latest_match, get_new_matches, get_next_matches
 
 
@@ -11,7 +12,8 @@ def top(request):
     :param request:
     :rtype render:
     """
-    new_articles = get_new_articles()
+    enabled_games = Game.objects.select_related('discipline').filter(is_active=True)
+    new_articles = get_new_articles(set(eg.id for eg in enabled_games))
     return render(request, 'web/index.html', context={
         'login_form': login_form,
         'topic_articles': new_articles[:3],

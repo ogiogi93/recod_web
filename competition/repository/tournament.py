@@ -1,44 +1,7 @@
 from django.utils import timezone
 
-from competition.infrastructure.tournament import MatchTeam, Match, Tournament
-
-
-class MatchEntity:
-    def __init__(self, match_teams):
-        self._match_teams = match_teams
-
-    def tournament_name(self):
-        return self._match_teams[0].match.tournament.name
-
-    def tournament_image(self):
-        return self._match_teams[0].match.tournament.image or 'https://talentech.co.za/assets/img/default-logo.png'
-
-    def status(self):
-        return self._match_teams[0].match.status
-
-    def start_date(self):
-        return self._match_teams[0].match.start_date
-
-    def start_time(self):
-        return self._match_teams[0].match.start_time
-
-    def home_team_name(self):
-        return self._match_teams[0].team.name
-
-    def home_team_image(self):
-        return self._match_teams[0].team.image or 'https://talentech.co.za/assets/img/default-logo.png'
-
-    def home_team_score(self):
-        return self._match_teams[0].score
-
-    def away_team_name(self):
-        return self._match_teams[1].team.name
-
-    def away_team_image(self):
-        return self._match_teams[1].team.image or 'https://talentech.co.za/assets/img/default-logo.png'
-
-    def away_team_score(self):
-        return self._match_teams[1].score
+from competition.models import MatchTeam, Match, Tournament
+from competition.entity.tournament import MatchEntity, TournamentEntity
 
 
 def get_latest_match():
@@ -89,7 +52,8 @@ def get_future_tournaments(limit=5):
     :param int limit:
     :rtype:
     """
-    return Tournament.objects.filter(is_active=True, date_start__gte=timezone.now())[:limit]
+    return [TournamentEntity(t)
+            for t in Tournament.objects.filter(is_active=True, date_start__gte=timezone.now())[:limit]]
 
 
 def get_old_tournaments(limit=10):
@@ -98,4 +62,5 @@ def get_old_tournaments(limit=10):
     :param limit:
     :return:
     """
-    return Tournament.objects.filter(is_active=True, date_start__lt=timezone.now())[:limit]
+    return [TournamentEntity(t)
+            for t in Tournament.objects.filter(is_active=True, date_start__lt=timezone.now())[:limit]]

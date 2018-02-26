@@ -24,14 +24,28 @@
                         <img src="{{ team.image }}" alt="{{ team.name }}">
                     </div>
                     <div class="nk-team-cont">
-                        <h3 class="h5 mb-20">
-                            <span class="text-main-1">Team:</span> {{ team.name }}</h3>
+                        <a href="{% url 'team_page' team_id=team.id %}">
+                            <h3 class="h5 mb-20">
+                                <span class="text-main-1">Team:</span> {{ team.name }}
+                            </h3>
+                        </a>
                         <h4 class="h6 mb-5">Members:</h4>
                         {% for member in team.members %}
-                            <a href="#">{{ member.user.nickname }}</a>,
+                            <a href="{% url 'user_page' user_id=member.id %}">
+                                {{ member.nickname }}
+                            </a>
                         {% endfor %}
-                        <div class="nk-team-photo" style="background-image: url({{ team.image }});"></div>
+                        <h4 class="h6 mb-5">
+                            活動ゲーム: {{ team.game }}
+                        </h4>
+                        <h4 class="h6 mb-5">
+                            活動プラットフォーム: {{ team.platform }}
+                        </h4>
                     </div>
+                    <a href="{% url 'team_page' team_id=team.id %}"
+                       class="nk-btn nk-btn-rounded nk-btn-color-main-1">
+                        more info
+                    </a>
                 </div>
             {% endfor %}
             <!-- END: Teams -->
@@ -106,4 +120,5 @@
             <!-- END: Sidebar -->
         </div>
     </div>
+    <div class="nk-gap-2"></div>
 {% endblock %}

@@ -1,12 +1,13 @@
 from django.conf.urls import url
 
-from account import views
+from account.views import *
 
 
 urlpatterns = [
-    url(r'^user/(?P<user_id>\d+)/', views.user_page, name='user_page'),
-    url(r'^auth/login/$', views.login_page, name='login'),
-    url(r'^auth/logout/$', views.logout_page, name='logout'),
-    url(r'^auth/register/$', views.register, name='register'),
-    url(r'^register/$', views.register_page, name='register_page'),
+    url(r'^user/(?P<user_id>\d+)/$', user_page, name='user_page'),
+    url(r'^user/edit/(?P<user_id>\d+)/$', edit_user, name='edit_user_page'),
+    url(r'^auth/login/$', login_page, name='login'),
+    url(r'^auth/logout/$', logout_page, name='logout'),
+    url(r'^auth/register/$', register, name='register'),
+    url(r'^register/$', register_page, name='register_page'),
 ]

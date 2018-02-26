@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row vertical-gap">
+        <div class="col-lg-12">
+            <!-- main area -->
+            <div class="panel">
+                <div class="panel-heading border">
+                    <ol class="breadcrumb mb0 no-padding">
+                        {{ nickname }}の所属チームの編集
+                    </ol>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped datatable editable-datatable responsive align-middle bordered">
+                        <thead>
+                        <tr>
+                            <th>チーム名</th>
+                            <th>メンバー</th>
+                            <th>活動ゲーム</th>
+                            <th>プラットフォーム</th>
+                            <th>活動状態</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for team in teams %}
+                            <tr>
+                                <td>{{ team.name }}</td>
+                                <td>
+                                    {% for member in team.members %}
+                                        {{ member.nickname }}
+                                    {% endfor %}
+                                </td>
+                                <td>{{ team.game }}</td>
+                                <td>{{ team.platform }}</td>
+                                <td>{{ team.is_active }}</td>
+                                {% if team.is_admin %}
+                                <td>
+                                    <a href="{% url 'edit_team_page' team_id=team.id %}" class="nk-news-box-item-more">編集する</a>
+                                </td>
+                                {% else %}
+                                    <td> 編集権限がありません </td>
+                                {% endif %}
+                                {% if not team.is_admin %}
+                                    <td>
+                                        <a href="{% url 'secession_team' team_id=team.id %}" class="nk-news-box-item-more">脱退する</a>
+                                    </td>
+                                {% else %}
+                                    <td>リーダーのため脱退できません</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <a href="{% url 'user_page' user_id=user.id %}" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-info pull-right">
+                        ユーザーページに戻る
+                    </a>
+                    <a href="{% url 'create_team_page' %}" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-info pull-right">
+                        チームを作成する
+                    </a>
+                </div>
+            </div>
+            <!-- /main area -->
+        </div>
+        <!-- /content panel -->
+    </div>
+    <div class="nk-gap-2"></div>
+{% endblock %}
