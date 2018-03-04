@@ -10,6 +10,7 @@ class Team(models.Model):
     name = models.CharField(max_length=255, null=False)
     date_created = models.DateField(auto_now_add=True)
     description = models.TextField(max_length=1024)
+    website = models.URLField()
     is_active = models.BooleanField(default=True)
     image = models.ImageField(upload_to='teams/', default='default-team-icon.png')
     created_at = models.DateTimeField(auto_now_add=True)

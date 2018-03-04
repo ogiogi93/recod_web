@@ -51,7 +51,7 @@
                                         <td>
                                             <strong class="h5">
                                                 {% for team in profile.teams %}
-                                                    <a href="{% url 'team_page' user_id=profile.id %}">
+                                                    <a href="{% url 'team_page' team_id=team.id %}">
                                                         {{ team.name }}
                                                     </a>
                                                 {% endfor %}

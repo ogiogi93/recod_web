@@ -84,6 +84,13 @@
                 </div>
             </div>
             <!-- END: Teammate Card -->
+            {% if team.is_admin %}
+                <a href="{% url 'participate_tournament' team_id=team.id %}">
+                    <button
+                            class="btn btn-default pull-right" type="button"> 大会に参加する
+                    </button>
+                </a>
+            {% endif %}
 
             <!-- START: Biography -->
             <div class="nk-gap-3"></div>
@@ -93,44 +100,74 @@
             <p> {{ team.description|safe }} </p>
             <!-- END: Biography -->
 
+            <!-- START: Participate Tournament -->
+            <div class="nk-gap-2"></div>
+            <h3 class="nk-decorated-h-2">
+                <span>
+                    <span class="text-main-1">Participate</span> Tournaments
+                </span>
+            </h3>
+            <div class="nk-gap"></div>
+            {% for tournament in team.tournaments %}
+                <div class="nk-blog-post nk-blog-post-border-bottom">
+                    {% if tournament.website %}
+                        <a href="{{ tournament.website }}" class="nk-post-img" target="_blank">
+                    {% else %}
+                        <a href="{% url 'tournament_page' tournament_id=tournament.id %}"
+                           class="nk-post-img">
+                    {% endif %}
+                    <img src="{{ tournament.image }}" alt="{{ tournament.name }}" width="480"
+                         height="240"></a>
+                    <div class="nk-gap-1"></div>
+                    <h4 class="nk-post-title h4">
+                        {% if tournament.website %}
+                            <a href="{{ tournament.website }}">{{ tournament.name }}</a>
+                        {% else %}
+                            <a href="{% url 'tournament_page' tournament_id=tournament.id %}">{{ tournament.name }}</a>
+                        {% endif %}
+                    </h4>
+                </div>
+            {% endfor %}
+            <!-- END: Participate Tournament -->
+
             <!-- START: Latest Matches -->
+            <!--
             <div class="nk-gap-2"></div>
             <h3 class="nk-decorated-h-2">
                             <span>
                                 <span class="text-main-1">Latest</span> Matches</span>
             </h3>
             <div class="nk-gap"></div>
-        <!--
-            <div class="nk-match">
-                <div class="nk-match-team-left">
-                    <div>
-                        <div class="nk-match-team-logo">
-                            <img src="assets/images/team-1.jpg" alt="">
+                <div class="nk-match">
+                    <div class="nk-match-team-left">
+                        <div>
+                            <div class="nk-match-team-logo">
+                                <img src="assets/images/team-1.jpg" alt="">
+                            </div>
+                            <div class="nk-match-team-name">
+                                SK Telecom T1
+                            </div>
                         </div>
-                        <div class="nk-match-team-name">
-                            SK Telecom T1
+                    </div>
+                    <div class="nk-match-status">
+                        <div class="nk-match-status-vs">VS</div>
+                        <div class="nk-match-status-date">Apr 28, 2016 8:00 pm</div>
+                        <div class="nk-match-score bg-danger">
+                            2 : 17
+                        </div>
+                    </div>
+                    <div class="nk-match-team-right">
+                        <div>
+                            <div class="nk-match-team-name">
+                                Cloud 9
+                            </div>
+                            <div class="nk-match-team-logo">
+                                <img src="assets/images/team-2.jpg" alt="">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="nk-match-status">
-                    <div class="nk-match-status-vs">VS</div>
-                    <div class="nk-match-status-date">Apr 28, 2016 8:00 pm</div>
-                    <div class="nk-match-score bg-danger">
-                        2 : 17
-                    </div>
-                </div>
-                <div class="nk-match-team-right">
-                    <div>
-                        <div class="nk-match-team-name">
-                            Cloud 9
-                        </div>
-                        <div class="nk-match-team-logo">
-                            <img src="assets/images/team-2.jpg" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END: Latest Matches -->
+                <!-- END: Latest Matches -->
 
             <!-- START: Upcoming Matches -->
             <!--

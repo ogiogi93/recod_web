@@ -130,4 +130,3 @@ def secession_team(request, team_id):
         member.delete()
         return redirect('/user/edit/{}/belong_team/'.format(user_id))
     return redirect('/user/edit/{}/belong_team/'.format(user_id))
-

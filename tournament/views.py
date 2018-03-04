@@ -1,9 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 from account.forms import login_form
 from team.entity import TeamEntity
+from tournament.api.tournaments import upsert_api_participate
 from tournament.entity import TournamentEntity
+from tournament.forms import ParticipateTournamentForm
+from service_api.models.teams import Team
 from service_api.models.tournaments import Tournament, Participate
 from match.views import get_next_matches, get_new_matches
 
@@ -46,4 +50,42 @@ def tournament(request, tournament_id):
                                        .get(pk=tournament_id)),
         'participate_teams': [TeamEntity(p.team) for p in
                               Participate.objects.select_related('team').filter(tournament_id=tournament_id)]
+    })
+
+
+@login_required
+def participate_tournament(request, team_id):
+    """
+    トーナメントに参加する
+    :param request:
+    :param int team_id:
+    :rtype redirect:
+    """
+    if request.method == 'POST':
+        form = ParticipateTournamentForm(request.POST,
+                                         initial={'team': Team.objects.get(pk=team_id)})
+        # 既に登録済みの大会は除く
+        form.fields['tournament'].queryset = Tournament.objects.filter(is_active=True).exclude(
+            participate__team__id=team_id)
+        if form.is_valid():
+            form.instance.team = Team.objects.get(pk=team_id)
+            # Toornament APIの方にも登録しておく
+            api_participate_id = upsert_api_participate(form.instance.team,
+                                                        api_tournament_id=form.instance.tournament.api_tournament_id)
+            form.instance.api_participate_id = api_participate_id
+            form.save()
+            return redirect('/team/{}/'.format(team_id))
+        return render(request, 'web/tournament/participate_tournament.html', context={
+            'login_form': login_form,
+            'form': form,
+            'team_id': team_id
+        })
+    form = ParticipateTournamentForm()
+    # 既に登録済みの大会は除く
+    form.fields['tournament'].queryset = Tournament.objects.filter(is_active=True).exclude(
+        participate__team__id=team_id)
+    return render(request, 'web/tournament/participate_tournament.html', context={
+        'login_form': login_form,
+        'form': form,
+        'team_id': team_id
     })
