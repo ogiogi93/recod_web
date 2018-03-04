@@ -1,5 +1,6 @@
 from service_api.models.teams import Member
 from service_api.models.tournaments import Participate
+from tournament.entity import TournamentEntity
 from recod_web.settings import AWS_S3_CUSTOM_DOMAIN
 
 
@@ -45,4 +46,7 @@ class TeamEntity:
         return False
 
     def tournaments(self):
-        return [p.tournament for p in Participate.objects.select_related('tournament').filter(team__id=self._team.id)]
+        return [TournamentEntity(p.tournament)
+                for p in Participate.objects.select_related(
+                'tournament', 'tournament__game__discipline', 'tournament__game__platform').filter(
+                team__id=self._team.id)]

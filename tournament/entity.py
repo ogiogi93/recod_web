@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from recod_web.settings import AWS_S3_CUSTOM_DOMAIN
 
 
@@ -34,3 +36,8 @@ class TournamentEntity:
 
     def platform(self):
         return self._tournament.game.platform.display_name
+
+    def is_finished(self):
+        if timezone.now().date() > self._tournament.date_start:
+            return True
+        return False

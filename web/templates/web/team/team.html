@@ -126,6 +126,10 @@
                             <a href="{% url 'tournament_page' tournament_id=tournament.id %}">{{ tournament.name }}</a>
                         {% endif %}
                     </h4>
+                    {% if not tournament.is_finished %}
+                        <a href="{% url 'refusal_tournament' tournament_id=tournament.id team_id=team.id %}"
+                           class="pull-right">参加を取り消す</a>
+                    {% endif %}
                 </div>
             {% endfor %}
             <!-- END: Participate Tournament -->

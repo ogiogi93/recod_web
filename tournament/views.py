@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 from account.forms import login_form
 from team.entity import TeamEntity
-from tournament.api.tournaments import upsert_api_participate
+from tournament.api.tournaments import upsert_api_participate, refusal_api_participate
 from tournament.entity import TournamentEntity
 from tournament.forms import ParticipateTournamentForm
 from service_api.models.teams import Team
@@ -42,7 +42,7 @@ def tournament_list(request):
     })
 
 
-def tournament(request, tournament_id):
+def tournament_page(request, tournament_id):
     return render(request, 'web/tournament/tournament.html', context={
         'login_form': login_form,
         'next_matches': get_next_matches(),
@@ -89,3 +89,22 @@ def participate_tournament(request, team_id):
         'form': form,
         'team_id': team_id
     })
+
+
+@login_required
+def refusal_tournament(request, team_id, tournament_id):
+    """
+    大会参加を辞退する
+    :param request:
+    :param int team_id:
+    :param int tournament_id:
+    :rtype redirect:
+    """
+    team = Team.objects.get(pk=team_id)
+    tournament = Tournament.objects.get(pk=tournament_id)
+    if team and tournament:
+        participate = Participate.objects.filter(team=team, tournament=tournament).first()
+        refusal_api_participate(api_tournament_id=participate.tournament.api_tournament_id,
+                                api_participate_id=participate.api_participate_id)
+        participate.delete()
+    return redirect('/team/{}/'.format(team_id))
