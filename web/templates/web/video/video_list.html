@@ -15,7 +15,7 @@
 
 {% block content %}
     <div class="row vertical-gap">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <!-- START: Video Galleries-->
             <div class="nk-gap-2"></div>
             <h2 class="nk-decorated-h-2 h3">
@@ -23,90 +23,46 @@
                             <span class="text-main-1">大会</span> 動画</span>
             </h2>
             <div class="nk-gap"></div>
-            <div class="row vertical-gap">
-                <div class="col-md-6">
-                    <h4>Call Of Duty WWII Competitive Gameplay CTF (FLAK TOWER)</h4>
-                    <div class="nk-plain-video" data-video="https://www.youtube.com/watch?v=dGliDjjGanw"></div>
-                </div>
-                <div class="col-md-6">
-                    <h4>CoD:WW2 CNA決勝 vsプロゲーマー『父の背中』【FirstactioN視点】</h4>
-                    <div class="nk-plain-video" data-video="https://www.youtube.com/watch?v=ZL16OUUKIyo"></div>
-                </div>
-                <div class="col-md-6">
-                    <h4>CNA優勝チームvs父ノ背中 PC版国内大会に向けてクラン戦</h4>
-                    <div class="nk-plain-video" data-video="https://www.youtube.com/watch?v=7hLyiLSoxmU"></div>
-                </div>
-            </div>
-            <!-- END: Video Galleries -->
-        </div>
-        <div class="col-lg-4">
-            <!-- START: Sidebar -->
-            <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
-                <div class="nk-widget nk-widget-highlighted">
-                    <h4 class="nk-widget-title">
-                                <span>
-                                    <span class="text-main-1">We</span> Are Social</span>
-                    </h4>
-                    <div class="nk-widget-content">
-                        <ul class="nk-social-links-3 nk-social-links-cols-4">
-                            <li>
-                                <a class="nk-social-twitch" href="#">
-                                    <span class="fa fa-twitch"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="nk-social-facebook" href="#">
-                                    <span class="fa fa-facebook"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="nk-social-youtube" href="#">
-                                    <span class="fa fa-youtube-play"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="nk-social-twitter" href="https://twitter.com/nkdevv" target="_blank">
-                                    <span class="fa fa-twitter"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="nk-widget nk-widget-highlighted">
-                    <h4 class="nk-widget-title">
-                                <span>
-                                    <span class="text-main-1">Next</span> Matches</span>
-                    </h4>
-                    <div class="nk-widget-content">
-                        {% for next_match in next_matches %}
-                            <div class="nk-widget-match">
-                                <div>
-                                    <div class="nk-widget-match-left">
-                                        <div class="nk-widget-match-teams">
-                                            <div class="nk-widget-match-team-logo">
-                                                <img src="{{ next_match.home_team_image }}"
-                                                     alt="{{ next_match.home_team_name }}">
-                                            </div>
-                                            <div class="nk-widget-match-vs">VS</div>
-                                            <div class="nk-widget-match-team-logo">
-                                                <img src="{{ next_match.away_team_image }}"
-                                                     alt="{{ next_match.away_team_name }}">
-                                            </div>
-                                        </div>
-                                        <div class="nk-widget-match-date">{{ next_match.start_date }} {{ next_match.start_time }}</div>
-                                    </div>
-                                    <div class="nk-widget-match-right">
-                                        <div class="nk-match-score">
-                                            Upcoming
-                                        </div>
-                                    </div>
+            <!-- START: Tabs  -->
+            <div class="nk-tabs">
+                <!--
+            Additional Classes:
+                .nav-tabs-fill
+            -->
+                <ul class="nav nav-tabs nav-tabs-fill" role="tablist">
+                    {% for game in games %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#{{ game.short_name }}" role="tab"
+                               data-toggle="tab">{{ game.short_name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="tab-content">
+                    {% for game in games %}
+                        {% if game.id == default_select_game_id %}
+                            <div role="tabpanel" class="tab-pane fade show active" id="{{ game.short_name }}">
+                        {% else %}
+                            <div role="tabpanel" class="tab-pane fade" id="{{ game.short_name }}">
+                        {% endif %}
+                    <div class="nk-gap"></div>
+                    <!-- START: Tab -->
+                    <div class="row vertical-gap">
+                        {% for video in videos %}
+                            {% if video.attribute.game_id == game.id %}
+                                <div class="col-md-6">
+                                    <h4>{{ video.title }}</h4>
+                                    <div class="nk-plain-video" data-video="{{ video.original_url }}"></div>
                                 </div>
-                            </div>
+                            {% endif %}
                         {% endfor %}
                     </div>
+                    </div>
+                    {% endfor %}
+                    <!-- END: Video Galleries -->
+                    </div>
                 </div>
-            </aside>
-            <!-- END: Sidebar -->
+            </div>
         </div>
     </div>
+    <div class="nk-gap-2"></div>
 {% endblock %}
