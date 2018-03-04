@@ -38,11 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storages',
-    'competition',
     'account',
     'article',
+    'forum',
+    'match',
+    'service_api',
+    'team',
+    'tournament',
+    'video',
     'web',
-    'forum'
 ]
 
 MIDDLEWARE = [

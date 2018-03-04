@@ -19,8 +19,8 @@ from django.conf.urls import include, url
 
 import account.urls as account_urls
 import article.urls as article_urls
-import competition.urls.team as team_urls
-import competition.urls.tournament as tournament_urls
+import team.urls as team_urls
+import tournament.urls as tournament_urls
 import forum.urls as forum_urls
 import video.urls as video_urls
 from web.views import *

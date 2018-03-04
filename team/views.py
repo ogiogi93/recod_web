@@ -3,38 +3,31 @@ from django.contrib.auth.decorators import login_required
 
 from account.forms import login_form
 from account.models import CustomUser as User
-from competition.entity.team import TeamEntity
-from competition.entity.tournament import TournamentEntity
-from competition.forms.team import UpsertTeamForm
-from competition.models import Member, Participate, Team, Tournament
-from competition.repository.tournament import (
-    get_next_matches,
-    get_new_matches,
-    get_future_tournaments,
-    get_old_tournaments
-)
-from competition.repository.team import get_teams, get_belong_teams
+from match.views import get_next_matches
+from team.entity import TeamEntity
+from team.forms import UpsertTeamForm
+from service_api.models.teams import Member, Team
 
 
-def tournament_list(request):
-    return render(request, 'web/tournament/tournament_list.html', context={
-        'login_form': login_form,
-        'next_matches': get_next_matches(),
-        'new_matches': get_new_matches(),
-        'future_tournaments': get_future_tournaments(),
-        'old_tournaments': get_old_tournaments()
-    })
+def get_teams():
+    """
+    各チーム情報を登録順で返す
+    :rtype List[TeamEntity]:
+    """
+    return [TeamEntity(t)
+            for t in Team.objects.select_related('game', 'game__discipline', 'game__platform').filter(
+            game__discipline__is_active=True)]
 
 
-def tournament(request, tournament_id):
-    return render(request, 'web/tournament/tournament.html', context={
-        'login_form': login_form,
-        'next_matches': get_next_matches(),
-        'tournament': TournamentEntity(Tournament.objects.select_related('game__discipline', 'game__discipline')
-                                       .get(pk=tournament_id)),
-        'participate_teams': [TeamEntity(p.team) for p in
-                              Participate.objects.select_related('team').filter(tournament_id=tournament_id)]
-    })
+def get_belong_teams(user_id):
+    """
+    指定されたユーザが所属するチーム情報を返す
+    :param user_id:
+    :rtype List[TeamEntity]:
+    """
+    return [TeamEntity(team=m.team, user_id=user_id) for m in
+            Member.objects.select_related('team', 'team__game__discipline', 'team__game__platform').filter
+            (user_id=user_id, is_active=True)]
 
 
 def team_page(request, team_id):
@@ -137,3 +130,4 @@ def secession_team(request, team_id):
         member.delete()
         return redirect('/user/edit/{}/belong_team/'.format(user_id))
     return redirect('/user/edit/{}/belong_team/'.format(user_id))
+

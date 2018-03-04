@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from account.views import *
+from account.views import user_page, edit_user, login_page, logout_page, register, register_page
 
 
 urlpatterns = [

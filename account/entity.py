@@ -1,6 +1,6 @@
 from recod_web.settings import AWS_S3_CUSTOM_DOMAIN
 
-from competition.models import Member
+from service_api.models.teams import Member
 
 
 class UserEntity:

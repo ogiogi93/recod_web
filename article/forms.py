@@ -1,5 +1,5 @@
 from django import forms
-from article.models import Article
+from service_api.models.articles import Article
 
 
 class UpsertArticleForm(forms.ModelForm):

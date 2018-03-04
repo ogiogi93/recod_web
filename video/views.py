@@ -1,8 +1,8 @@
 from django.shortcuts import render
 
 from account.forms import login_form
-from article.repository import get_new_articles
-from competition.repository.tournament import get_new_matches, get_next_matches
+from article.views import get_new_articles
+from match.views import get_new_matches, get_next_matches
 
 
 def video_list(request):

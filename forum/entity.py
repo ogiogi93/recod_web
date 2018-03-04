@@ -1,4 +1,4 @@
-from account.models import Forum, Topic, Thread
+from service_api.models.forums import Topic, Thread
 from recod_web.settings import AWS_S3_CUSTOM_DOMAIN
 
 

@@ -2,10 +2,9 @@ from django.shortcuts import render
 
 from account.forms import login_form
 from article.entity import ArticleEntity, GameEntity
-from article.repository import get_new_articles
-from article.models import Article
-from competition.models import Game
-from competition.repository.tournament import get_next_matches
+from service_api.models.articles import Article
+from service_api.models.disciplines import Game
+from tournament.views import get_next_matches
 
 
 def article_list(request):
@@ -26,3 +25,12 @@ def article(request, article_id):
     })
 
 
+def get_new_articles(enabled_game_ids, limit=20):
+    """
+    有効なゲームの最新記事を返す
+    :param Set(int) enabled_game_ids:
+    :param int limit:
+    :rtype List[ArticleEntity]:
+    """
+    return [ArticleEntity(a) for a in Article.objects.select_related('user').filter(
+        game_id__in=enabled_game_ids, is_active=True).order_by('-created_at')[:limit]]

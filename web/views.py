@@ -1,9 +1,9 @@
 from django.shortcuts import render
 
 from account.forms import login_form
-from article.repository import get_new_articles
-from competition.models import Game
-from competition.repository.tournament import get_latest_match, get_new_matches, get_next_matches
+from article.views import get_new_articles
+from service_api.models.tournaments import Game
+from match.views import get_latest_match, get_new_matches, get_next_matches
 
 
 def top(request):

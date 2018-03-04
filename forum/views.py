@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from account.models import CustomUser as User
-from account.models import Forum, Thread, Topic
+from service_api.models.forums import Forum, Thread, Topic
 from forum.forms import UpsertForumForm, UpsertThreadForm, UpsertTopicForm
 from forum.entity import ForumEntity, TopicEntity, ThreadEntity
 
