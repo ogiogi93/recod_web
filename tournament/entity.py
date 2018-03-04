@@ -1,6 +1,6 @@
 from django.utils import timezone
 
-from recod_web.settings import AWS_S3_CUSTOM_DOMAIN
+from recod_web.settings import AWS_S3_CUSTOM_DOMAIN, ENV
 
 
 class TournamentEntity:
@@ -26,6 +26,8 @@ class TournamentEntity:
         return self._tournament.prize
 
     def image(self):
+        if ENV == 'develop':
+            return 'http://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._tournament.image)
         return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._tournament.image)
 
     def website(self):

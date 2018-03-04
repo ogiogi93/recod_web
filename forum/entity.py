@@ -1,5 +1,5 @@
 from service_api.models.forums import Topic, Thread
-from recod_web.settings import AWS_S3_CUSTOM_DOMAIN
+from recod_web.settings import AWS_S3_CUSTOM_DOMAIN, ENV
 
 
 class ForumEntity:
@@ -33,6 +33,8 @@ class ForumEntity:
 
     def active_topic_image(self):
         if self._topic:
+            if ENV == 'develop':
+                return 'http://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._topic[0].user.image)
             return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._topic[0].user.image)
         return ''
 
@@ -78,6 +80,8 @@ class TopicEntity:
 
     def active_thread_image(self):
         if self._threads:
+            if ENV == 'develop':
+                return 'http://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._threads[0].user.image)
             return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._threads[0].user.image)
         return ''
 
@@ -106,6 +110,8 @@ class ThreadEntity:
         return self._thread.user.id
 
     def user_image(self):
+        if ENV == 'develop':
+            return 'http://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._thread.user.image)
         return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._thread.user.image)
 
     def user_joined_date(self):

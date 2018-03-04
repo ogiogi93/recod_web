@@ -1,7 +1,7 @@
 from service_api.models.teams import Member
 from service_api.models.tournaments import Participate
 from tournament.entity import TournamentEntity
-from recod_web.settings import AWS_S3_CUSTOM_DOMAIN
+from recod_web.settings import AWS_S3_CUSTOM_DOMAIN, ENV
 
 
 class TeamEntity:
@@ -36,6 +36,8 @@ class TeamEntity:
         return self._team.game.platform.display_name
 
     def image(self):
+        if ENV == 'develop':
+            return 'http://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._team.image)
         return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._team.image)
 
     def is_admin(self):

@@ -1,4 +1,4 @@
-from recod_web.settings import AWS_S3_CUSTOM_DOMAIN
+from recod_web.settings import AWS_S3_CUSTOM_DOMAIN, ENV
 
 
 class ArticleEntity:
@@ -19,6 +19,9 @@ class ArticleEntity:
 
     def published_date(self):
         return self._article.created_at.date()
+
+    def updated_at(self):
+        return self._article.updated_at
 
     def content(self):
         return self._article.content
@@ -41,6 +44,8 @@ class ArticleEntity:
         return self._article.user.nickname
 
     def writer_image(self):
+        if ENV == 'develop':
+            return 'http://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._article.user.image)
         return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._article.user.image)
 
 
