@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block breadcurmbs %}
+    <ul class="nk-breadcrumbs">
+        <li><a href="{% url 'top_page' %}">Home</a></li>
+        <li>
+            <span class="fa fa-angle-right"></span>
+        </li>
+        <li><a href="{% url 'article_list' %}">Article</a></li>
+        <li>
+            <span class="fa fa-angle-right"></span>
+        </li>
+        <li>
+            <span>Articles</span>
+        </li>
+    </ul>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+{% endblock %}
+{% block content %}
+    <div class="row vertical-gap">
+        <div class="col-lg-12">
+            <!-- START: Tabs  -->
+            <div class="nk-tabs">
+                <!--
+            Additional Classes:
+                .nav-tabs-fill
+            -->
+                <ul class="nav nav-tabs nav-tabs-fill" role="tablist">
+                    {% for game in games %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#{{ game.short_name }}" role="tab"
+                               data-toggle="tab">{{ game.short_name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="tab-content">
+                    {% for game in games %}
+                        {% if game.id == default_select_game_id %}
+                            <div role="tabpanel" class="tab-pane fade show active" id="{{ game.short_name }}">
+                        {% else %}
+                            <div role="tabpanel" class="tab-pane fade" id="{{ game.short_name }}">
+                        {% endif %}
+                    <div class="nk-gap"></div>
+                    <!-- START: Tab -->
+                    <div class="row">
+                        {% for article in articles %}
+                            {% if article.game_id == game.id %}
+                                <div class="col-lg-4">
+                                    <div class="nk-blog-post nk-blog-post-border-bottom">
+                                        <a href="{{ article.url }}" class="nk-post-img">
+                                            <img src="{{ article.thumbnail_url }}" alt="{{ article.title }}"
+                                                 width="320"
+                                                 height="auto">
+
+                                            <span class="nk-post-categories">
+                                            <span class="bg-main-1">{{ article.game_name }}</span>
+                                        </span>
+
+                                        </a>
+                                        <div class="nk-gap-1"></div>
+                                        <h2 class="nk-post-title h4"><a
+                                                href="{{ article.url }}">{{ article.title }}</a>
+                                        </h2>
+                                        <div class="nk-post-date mt-10 mb-10">
+                                            <span class="fa fa-calendar"></span> {{ article.created_at }}
+                                        </div>
+                                        <div class="nk-post-text">
+                                            {{ article.content|safe }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

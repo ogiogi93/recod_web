@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% load static %}
+{% block breadcurmbs %}
+    <ul class="nk-breadcrumbs">
+        <li><a href="{% url 'top_page' %}">Home</a></li>
+        <li>
+            <span class="fa fa-angle-right"></span>
+        </li>
+        <li><a href="{% url 'tournament_list_page' %}">Tournament</a></li>
+        <li>
+            <span>{{ tournament.name }}</span>
+        </li>
+    </ul>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+{% endblock %}
+{% block content %}
+    <div class="row vertical-gap">
+        <div class="col-lg-8">
+            <!-- START: Tournament -->
+            <div class="nk-blog-post nk-blog-post-single">
+                <!-- START: Tournament Text -->
+                <div class="nk-post-text mt-0">
+                    <div class="nk-post-img">
+                        <img src="{{ tournament.image }}" alt="{{ tournament.name }}" width="auto" height="280">
+                    </div>
+                    <div class="nk-gap-1"></div>
+                    <h1 class="nk-post-title h4">{{ tournament.name }}</h1>
+                    <div class="nk-post-by">
+                        <div class="nk-post-categories">
+                            <span class="bg-main-1">{{ tournament.game }}</span>
+                            <span class="bg-main-2">{{ tournament.platform }}</span>
+                        </div>
+                    </div>
+                    <div class="nk-gap-1"></div>
+                    <ul class="nk-social-links-2" style="text-align: right">
+                        <li>
+                                        <span class="nk-social-facebook" title="Share page on Facebook"
+                                              data-share="facebook">
+                                            <span class="fa fa-facebook"></span>
+                                        </span>
+                        </li>
+                        <li>
+                                        <span class="nk-social-google-plus" title="Share page on Google+"
+                                              data-share="google-plus">
+                                            <span class="fa fa-google-plus"></span>
+                                        </span>
+                        </li>
+                        <li>
+                                        <span class="nk-social-twitter" title="Share page on Twitter"
+                                              data-share="twitter">
+                                            <span class="fa fa-twitter"></span>
+                                        </span>
+                        </li>
+                        <li>
+                                        <span class="nk-social-pinterest" title="Share page on Pinterest"
+                                              data-share="pinterest">
+                                            <span class="fa fa-pinterest-p"></span>
+                                        </span>
+                        </li>
+                    </ul>
+                    <p> {{ tournament.descroption|safe }}</p>
+                    <div class="nk-gap"></div>
+
+                    <h3 class="nk-post-title h4"> 賞品 </h3>
+                    <p> {{ tournament.prize|safe }}</p>
+                    <div class="nk-gap"></div>
+
+                    <h3 class="nk-post-title h4"> ルール </h3>
+                    <p> {{ tournament.rules|safe }}</p>
+                    <div class="nk-gap"></div>
+
+                </div>
+            </div>
+            <!-- END: Tournament text -->
+
+            <!-- START: Participate Teams -->
+            <h3 class="nk-post-title h4"> 参加チーム </h3>
+            <div class="nk-gap"></div>
+            {% for team in participate_teams %}
+                <div class="nk-team">
+                    <div class="nk-team-logo">
+                        <img src="{{ team.image }}" alt="{{ team.name }}">
+                    </div>
+                    <div class="nk-team-cont">
+                        <a href="{% url 'team_page' team_id=team.id %}">
+                            <h3 class="h5 mb-20">
+                                <span class="text-main-1">Team:</span> {{ team.name }}
+                            </h3>
+                        </a>
+                        <h4 class="h6 mb-5">Members:</h4>
+                        {% for member in team.members %}
+                            <a href="{% url 'user_page' user_id=member.id %}">
+                                {{ member.nickname }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                    <a href="{% url 'team_page' team_id=team.id %}"
+                       class="nk-btn nk-btn-rounded nk-btn-color-main-1">
+                        more info
+                    </a>
+                </div>
+            {% endfor %}
+            <!-- END: Participate Teams -->
+        </div>
+        <!-- END: Tournament -->
+        <div class="col-lg-4">
+            <!-- START: Sidebar -->
+            <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
+                <div class="nk-widget nk-widget-highlighted">
+                    <h4 class="nk-widget-title">
+                                <span>
+                                    <span class="text-main-1">We</span> Are Social</span>
+                    </h4>
+                    <div class="nk-widget-content">
+                        <ul class="nk-social-links-3 nk-social-links-cols-4">
+                            <li>
+                                <a class="nk-social-twitch" href="#">
+                                    <span class="fa fa-twitch"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nk-social-facebook" href="#">
+                                    <span class="fa fa-facebook"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nk-social-youtube" href="#">
+                                    <span class="fa fa-youtube-play"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nk-social-twitter" href="https://twitter.com/nkdevv" target="_blank">
+                                    <span class="fa fa-twitter"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="nk-widget nk-widget-highlighted">
+                    <h4 class="nk-widget-title">
+                                <span>
+                                    <span class="text-main-1">Next</span> Matches</span>
+                    </h4>
+                    <div class="nk-widget-content">
+                        {% for next_match in next_matches %}
+                            <div class="nk-widget-match">
+                                <div>
+                                    <div class="nk-widget-match-left">
+                                        <div class="nk-widget-match-teams">
+                                            <div class="nk-widget-match-team-logo">
+                                                <img src="{{ next_match.home_team_image }}"
+                                                     alt="{{ next_match.home_team_name }}">
+                                            </div>
+                                            <div class="nk-widget-match-vs">VS</div>
+                                            <div class="nk-widget-match-team-logo">
+                                                <img src="{{ next_match.away_team_image }}"
+                                                     alt="{{ next_match.away_team_name }}">
+                                            </div>
+                                        </div>
+                                        <div class="nk-widget-match-date">{{ next_match.start_date }} {{ next_match.start_time }}</div>
+                                    </div>
+                                    <div class="nk-widget-match-right">
+                                        <div class="nk-match-score">
+                                            Upcoming
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </aside>
+            <!-- END: Sidebar -->
+        </div>
+    </div>
+{% endblock %}

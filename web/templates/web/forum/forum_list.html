@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block breadcurmbs %}
+    <!-- START: Breadcrumbs -->
+    <ul class="nk-breadcrumbs">
+        <li><a href="{% url 'top_page' %}">Home</a></li>
+        <li>
+            <span class="fa fa-angle-right"></span>
+        </li>
+        <li>
+            <span>Forum</span>
+        </li>
+
+    </ul>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <!-- START: Forums List -->
+        {% for forum in forums %}
+            <ul class="nk-forum">
+                <li>
+                    <div class="nk-forum-icon">
+                        <span class="ion-ios-game-controller-b"></span>
+                    </div>
+                    <div class="nk-forum-title">
+                        <h3><a href="{% url 'topic_page' forum_id=forum.id %}">{{ forum.title }}</a></h3>
+                        <div class="nk-forum-title-sub">{{ forum.short_description|safe }}</div>
+                    </div>
+                    <div class="nk-forum-count">
+                        {{ forum.topic_count }} トピック
+                    </div>
+                    <div class="nk-forum-activity-avatar">
+                        <img src="{{ forum.active_topic_image }}" alt="{{ forum.active_topic_user }}">
+                    </div>
+                    <div class="nk-forum-activity">
+                        <div class="nk-forum-activity-title" title="{{ forum.active_topic_title }}">
+                            <a href="{% url 'topic_page' forum_id=forum.id %}">{{ forum.active_topic_title }}</a>
+                        </div>
+                        <div class="nk-forum-activity-date">
+                            {{ forum.active_topic_datetime }}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        {% endfor %}
+        <!-- END: Forums List -->
+        {% if user.is_authenticated %}
+            <div class="nk-gap-1"></div>
+            <div class="nk-widget">
+                <h4 class="nk-widget-title">
+                    <span class="text-main-1"></span>
+                    フォームを新規作成する
+                </h4>
+                <div class="nk-widget-content">
+                    <form method="post" class="nk-form" action="{% url 'create_forum' %}">
+                        <div class="form-group">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                        </div>
+                        <button class="btn btn-primary pull-right" type="submit"> 新規作成</button>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

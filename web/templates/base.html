@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 <!DOCTYPE html>
 <!--
   Name: GoodGames - Game Portal / Store HTML Template
@@ -120,18 +120,16 @@
             </div>
             <div class="nk-contacts-right">
                 <ul class="nk-contacts-icons">
-                    <li>
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'logout' %}"> ログアウト </a>
-                            <a href="{% url 'user_page' %}?user_id={{ user.id }}"><span class="fa fa-user">{{ user.username }} </span></a>
-                        {% endif %}
-
-                        {% if not user.is_authenticated %}
-                            <a href="#" data-toggle="modal" data-target="#modalLogin">
-                                <span class="fa fa-user"> ログイン </span>
-                            </a>
-                        {% endif %}
-                    </li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'logout' %}"> ログアウト </a></li>
+                        <li><a href="{% url 'user_page' user_id=user.id %}"><span
+                                class="fa fa-user">{{ user.username }} </span></a></li>
+                    {% else %}
+                        <li><a href="{% url 'register_page' %}"> 新規登録 </a>
+                        <li><a href="#" data-toggle="modal" data-target="#modalLogin">
+                            <span class="fa fa-user"> ログイン </span>
+                        </a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -155,8 +153,8 @@
                 </a>
                 <ul class="nk-nav nk-nav-right hidden-md-down" data-nav-mobile="#nk-nav-mobile">
                     <li>
-                        <a href="{% url 'news_list_page' %}">
-                            NEWS
+                        <a href="{% url 'article_list' %}">
+                            記事
                         </a>
                     </li>
                     <li class=" nk-drop-item">
@@ -177,7 +175,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="{% url 'competition_page' %}">
+                        <a href="{% url 'tournament_list_page' %}">
                             大会
                         </a>
                     </li>
@@ -240,84 +238,97 @@ Additional Classes:
     </div>
 </div>
 <!-- END: Navbar Mobile -->
-{% block content %}
-{% endblock %}
-{% block sidebar %}
-{% endblock %}
-<!-- START: Footer -->
-<footer class="nk-footer">
-    <div class="nk-copyright">
-        <div class="container">
-            <div class="nk-copyright-left">
-                Copyright &copy; 2018 | <a href="#" target="_blank">Call of Duty Noble Arena </a>,
-                design <a href="https://themeforest.net/user/syatweb?ref=_nK" target="_blank">SYATWEB</a>
+<div class="nk-main">
+    <div class="nk-gap-1"></div>
+    <div class="container">
+        {% block breadcurmbs %}
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
+        {% block sidebar %}
+        {% endblock %}
+
+    </div>
+    <!-- START: Footer -->
+    <footer class="nk-footer">
+        <div class="nk-copyright">
+            <div class="container">
+                <div class="nk-copyright-left">
+                    Copyright &copy; 2018 | <a href="#" target="_blank">Call of Duty Noble Arena </a>,
+                    design <a href="https://themeforest.net/user/syatweb?ref=_nK" target="_blank">SYATWEB</a>
+                    <a href="https://www.toornament.com" target="_blank">
+                        <img src="{% static 'images/toornament_logo.png' %}" width="210" height="auto">
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
-<!-- END: Footer -->
+    </footer>
+    <!-- END: Footer -->
 
-{% block background %}
-{% endblock %}
+    {% block background %}
+    {% endblock %}
 
-<!-- START: Login Modal -->
-<div class="nk-modal modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span class="ion-android-close"></span>
-                </button>
+    <!-- START: Login Modal -->
+    <div class="nk-modal modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="ion-android-close"></span>
+                    </button>
 
-                <h4 class="mb-0">
-                    <span class="text-main-1"></span> ログイン </h4>
+                    <h4 class="mb-0">
+                        <span class="text-main-1"></span> ログイン </h4>
 
-                <div class="nk-gap-1"></div>
-                <form action="{% url 'login' %}" method="post" class="nk-form text-white">
-                    {% csrf_token %}
-                    <div class="row vertical-gap">
-                        <div class="col-md-6">
-                            {{ login_form.as_p }}
-                        </div>
-                        <div class="col-md-6">
-                            Or social account:
-
-                            <div class="nk-gap"></div>
-
-                            <ul class="nk-social-links-2">
-                                <li>
-                                    <a class="nk-social-facebook" href="#">
-                                        <span class="fa fa-facebook"></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="nk-social-twitter" href="#">
-                                        <span class="fa fa-twitter"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                     <div class="nk-gap-1"></div>
-                    <div class="row vertical-gap">
-                        <div class="col-md-6">
-                            <button type="submit" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-block">ログイン</button>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mnt-5">
-                                <small><a href="#">パスワードを忘れてしまった場合</a></small>
+                    <form action="{% url 'login' %}" method="post" class="nk-form text-white">
+                        {% csrf_token %}
+                        <div class="row vertical-gap">
+                            <div class="col-md-6">
+                                {{ login_form.as_p }}
                             </div>
-                            <div class="mnt-5">
-                                <small><a href="{% url 'register_page' %}"> アカウントをお持ちでない場合 </a></small>
+                            <div class="col-md-6">
+                                Or social account:
+
+                                <div class="nk-gap"></div>
+
+                                <ul class="nk-social-links-2">
+                                    <li>
+                                        <a class="nk-social-facebook" href="#">
+                                            <span class="fa fa-facebook"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nk-social-twitter" href="#">
+                                            <span class="fa fa-twitter"></span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                    </div>
-                </form>
+                        <div class="nk-gap-1"></div>
+                        <div class="row vertical-gap">
+                            <div class="col-md-6">
+                                <button type="submit" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-block">
+                                    ログイン
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mnt-5">
+                                    <small><a href="#">パスワードを忘れてしまった場合</a></small>
+                                </div>
+                                <div class="mnt-5">
+                                    <small><a href="{% url 'register_page' %}"> アカウントをお持ちでない場合 </a></small>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+    <!-- END: Login Modal -->
 </div>
-<!-- END: Login Modal -->
 </body>
 <!-- START: Scripts -->
 <!-- GSAP -->

@@ -24,6 +24,7 @@ SECRET_KEY = '$t1biz^46d!fqpb^e%p%4@b&b4_l5je1k6n%#eg%v55uuw*q$b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ENV = 'develop'
 
 ALLOWED_HOSTS = ['*']
 
@@ -37,9 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'service_api',
+    'storages',
     'account',
-    'web'
+    'article',
+    'forum',
+    'match',
+    'service_api',
+    'team',
+    'tournament',
+    'video',
+    'web',
 ]
 
 MIDDLEWARE = [
@@ -62,13 +70,13 @@ ROOT_URLCONF = 'recod_web.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['web.templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -96,6 +104,84 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Logging
+LOGGING_PREFIX = 'recod_web'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'formatters': {
+        'verbose': {
+            '()': 'colorlog.ColoredFormatter',
+            'format': ('%(log_color)s[%(levelname)s]'
+                       '[in %(pathname)s:%(lineno)d]'
+                       '%(asctime)s %(process)d %(thread)d '
+                       '%(module)s: %(message)s'),
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+            'log_colors': {
+                'DEBUG':    'bold_black',
+                'INFO':     'white',
+                'WARNING':  'yellow',
+                'ERROR':    'red',
+                'CRITICAL': 'bold_red',
+            },
+        },
+        'sql': {
+            '()': 'colorlog.ColoredFormatter',
+            'format': '%(cyan)s[SQL] %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+        'syslog_verbose': {
+            'format': ('{}:[%(levelname)s] [in %(pathname)s:%(lineno)d] '
+                       '%(asctime)s %(process)d %(thread)d '
+                       '%(module)s: %(message)s'.format(LOGGING_PREFIX)),
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+    },
+    'handlers': {
+        # コンソール出力するハンドラ
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        # SQLをコンソール出力するハンドラ
+        'sql': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'sql'
+        },
+        # null出力するハンドラ
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+    },
+    'loggers': {
+        # djangoのログ
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True
+        },
+        # Database Query
+        'django.db.backends': {
+            'handlers': ['sql'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        LOGGING_PREFIX: {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    }
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -109,16 +195,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
-
-STATIC_URL = '/static/'
-STATIC_ROOT = '/var/www/recod_web/staticfiles'
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
 
 MEDIA_ROOT = (
     os.path.join(BASE_DIR, "static/images")
@@ -135,3 +211,20 @@ try:
     from .static_settings import *
 except ImportError:
     raise
+
+
+AWS_REGION = STATIC_SETTINGS['AWS_REGION']
+AWS_ACCESS_KEY_ID = STATIC_SETTINGS['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = STATIC_SETTINGS['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = STATIC_SETTINGS['AWS_S3_BUCKET_NAME']
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = STATIC_SETTINGS['AWS_LOCATION']
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+STATIC_URL = '/static/'

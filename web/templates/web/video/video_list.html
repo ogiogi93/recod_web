@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block breadcurmbs %}
+    <ul class="nk-breadcrumbs">
+        <li><a href="{% url 'top_page' %}">Home</a></li>
+        <li>
+            <span class="fa fa-angle-right"></span>
+        </li>
+        <li>
+            <span>過去の動画</span>
+        </li>
+    </ul>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+{% endblock %}
+
+{% block content %}
+    <div class="row vertical-gap">
+        <div class="col-lg-12">
+            <!-- START: Video Galleries-->
+            <div class="nk-gap-2"></div>
+            <h2 class="nk-decorated-h-2 h3">
+                        <span>
+                            <span class="text-main-1">大会</span> 動画</span>
+            </h2>
+            <div class="nk-gap"></div>
+            <!-- START: Tabs  -->
+            <div class="nk-tabs">
+                <!--
+            Additional Classes:
+                .nav-tabs-fill
+            -->
+                <ul class="nav nav-tabs nav-tabs-fill" role="tablist">
+                    {% for game in games %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#{{ game.short_name }}" role="tab"
+                               data-toggle="tab">{{ game.short_name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="tab-content">
+                    {% for game in games %}
+                        {% if game.id == default_select_game_id %}
+                            <div role="tabpanel" class="tab-pane fade show active" id="{{ game.short_name }}">
+                        {% else %}
+                            <div role="tabpanel" class="tab-pane fade" id="{{ game.short_name }}">
+                        {% endif %}
+                    <div class="nk-gap"></div>
+                    <!-- START: Tab -->
+                    <div class="row vertical-gap">
+                        {% for video in videos %}
+                            {% if video.attribute.game_id == game.id %}
+                                <div class="col-md-6">
+                                    <h4>{{ video.title }}</h4>
+                                    <div class="nk-plain-video" data-video="{{ video.original_url }}"></div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    </div>
+                    {% endfor %}
+                    <!-- END: Video Galleries -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nk-gap-2"></div>
+{% endblock %}
