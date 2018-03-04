@@ -66,7 +66,7 @@
                                     -->
                                 </div>
                                 <div class="nk-post-text">
-                                    <p>{{ future_tournament.description }}</p>
+                                    <p>{{ future_tournament.description|safe }}</p>
                                 </div>
                             </div>
                         {% endfor %}
@@ -106,7 +106,7 @@
                                     -->
                                 </div>
                                 <div class="nk-post-text">
-                                    <p>{{ old_tournament.description }}</p>
+                                    <p>{{ old_tournament.description|safe }}</p>
                                 </div>
                             </div>
                         {% endfor %}

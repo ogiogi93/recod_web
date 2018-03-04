@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="nk-forum-topic-content">
-                        {{ thread.description }}
+                        {{ thread.description|safe }}
                     </div>
                     <div class="nk-forum-topic-footer">
                         <span class="nk-forum-topic-date">{{ thread.post_date }}</span>
