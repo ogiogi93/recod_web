@@ -1,9 +1,9 @@
 from django.shortcuts import render
 
 from account.forms import login_form
-from article.repository import get_new_articles
-from competition.models import Game
-from competition.repository.tournament import get_latest_match, get_new_matches, get_next_matches
+from article.views import get_new_articles
+from service_api.models.tournaments import Game
+from match.views import get_latest_match, get_new_matches, get_next_matches
 
 
 def top(request):
@@ -14,6 +14,7 @@ def top(request):
     """
     enabled_games = Game.objects.select_related('discipline').filter(is_active=True)
     new_articles = get_new_articles(set(eg.id for eg in enabled_games))
+    # TODO: 直す
     return render(request, 'web/index.html', context={
         'login_form': login_form,
         'topic_articles': new_articles[:3],
@@ -22,12 +23,6 @@ def top(request):
         'latest_match': get_latest_match(),
         'new_matches': get_new_matches(),
         'next_matches': get_next_matches()
-    })
-
-
-def forum(request):
-    return render(request, 'web/forum.html', context={
-        'login_form': login_form,
     })
 
 

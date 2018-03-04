@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 from account.models import CustomUser as User
-from competition.models import Game
+from service_api.models.disciplines import Game
 
 
 class Article(models.Model):
@@ -24,3 +24,5 @@ class Article(models.Model):
         managed = False
         db_table = 'articles'
 
+    def __str__(self):
+        return self.title

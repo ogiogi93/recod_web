@@ -1,6 +1,6 @@
-from recod_web.settings import AWS_S3_CUSTOM_DOMAIN
+from recod_web.settings import AWS_S3_CUSTOM_DOMAIN, ENV
 
-from competition.models import Member
+from service_api.models.teams import Member
 
 
 class UserEntity:
@@ -20,6 +20,8 @@ class UserEntity:
         return self._user.description
 
     def image(self):
+        if ENV == 'develop':
+            return 'http://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._user.image)
         return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._user.image)
 
     def teams(self):

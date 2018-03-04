@@ -24,6 +24,7 @@ SECRET_KEY = '$t1biz^46d!fqpb^e%p%4@b&b4_l5je1k6n%#eg%v55uuw*q$b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ENV = 'develop'
 
 ALLOWED_HOSTS = ['*']
 
@@ -38,11 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storages',
-    'competition',
     'account',
     'article',
+    'forum',
+    'match',
+    'service_api',
+    'team',
+    'tournament',
+    'video',
     'web',
-    'forum'
 ]
 
 MIDDLEWARE = [
@@ -98,6 +103,84 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Logging
+LOGGING_PREFIX = 'recod_web'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'formatters': {
+        'verbose': {
+            '()': 'colorlog.ColoredFormatter',
+            'format': ('%(log_color)s[%(levelname)s]'
+                       '[in %(pathname)s:%(lineno)d]'
+                       '%(asctime)s %(process)d %(thread)d '
+                       '%(module)s: %(message)s'),
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+            'log_colors': {
+                'DEBUG':    'bold_black',
+                'INFO':     'white',
+                'WARNING':  'yellow',
+                'ERROR':    'red',
+                'CRITICAL': 'bold_red',
+            },
+        },
+        'sql': {
+            '()': 'colorlog.ColoredFormatter',
+            'format': '%(cyan)s[SQL] %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+        'syslog_verbose': {
+            'format': ('{}:[%(levelname)s] [in %(pathname)s:%(lineno)d] '
+                       '%(asctime)s %(process)d %(thread)d '
+                       '%(module)s: %(message)s'.format(LOGGING_PREFIX)),
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+    },
+    'handlers': {
+        # コンソール出力するハンドラ
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        # SQLをコンソール出力するハンドラ
+        'sql': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'sql'
+        },
+        # null出力するハンドラ
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+    },
+    'loggers': {
+        # djangoのログ
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True
+        },
+        # Database Query
+        'django.db.backends': {
+            'handlers': ['sql'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        LOGGING_PREFIX: {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/

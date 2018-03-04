@@ -51,7 +51,7 @@
                                         <td>
                                             <strong class="h5">
                                                 {% for team in profile.teams %}
-                                                    <a href="#">
+                                                    <a href="{% url 'team_page' team_id=team.id %}">
                                                         {{ team.name }}
                                                     </a>
                                                 {% endfor %}
@@ -73,7 +73,7 @@
             <h3 class="nk-decorated-h-2">
                 <span>Biography</span>
             </h3>
-            <p> {{ profile.description }} </p>
+            <p> {{ profile.description|safe }} </p>
             <!-- END: Biography -->
 
             <!-- START: Latest Matches -->

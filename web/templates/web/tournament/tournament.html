@@ -59,15 +59,15 @@
                                         </span>
                         </li>
                     </ul>
-                    <p> {{ tournament.descroption }}</p>
+                    <p> {{ tournament.descroption|safe }}</p>
                     <div class="nk-gap"></div>
 
                     <h3 class="nk-post-title h4"> 賞品 </h3>
-                    <p> {{ tournament.prize }}</p>
+                    <p> {{ tournament.prize|safe }}</p>
                     <div class="nk-gap"></div>
 
                     <h3 class="nk-post-title h4"> ルール </h3>
-                    <p> {{ tournament.rules }}</p>
+                    <p> {{ tournament.rules|safe }}</p>
                     <div class="nk-gap"></div>
 
                 </div>

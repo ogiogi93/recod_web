@@ -1,5 +1,7 @@
 from django import forms
-from competition.models import Game, Team
+
+from service_api.models.disciplines import Game
+from service_api.models.teams import Team
 
 
 class UpsertTeamForm(forms.ModelForm):

@@ -35,7 +35,7 @@
                     </div>
                     <div class="nk-forum-activity">
                         <div class="nk-forum-activity-title" title="{{ topic.active_topic_title }}">
-                            <a href="#">{{ topic.active_topic_title }}</a>
+                            <a href="{% url 'thread_page' forum_id=forum_id topic_id=topic.id %}">{{ topic.active_topic_title }}</a>
                         </div>
                         <div class="nk-forum-activity-date">
                             {{ topic.active_topic_datetime }}

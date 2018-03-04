@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
@@ -31,17 +30,14 @@ class CustomUser(AbstractBaseUser):
         max_length=255,
         unique=True
     )
-
-    # Status
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     date_joined = models.DateTimeField(auto_now_add=True)
 
-    # Extra
     nickname = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(max_length=1024)
     image = models.ImageField(upload_to='users/', default='defaults/default-profile-icon.jpg')
 
     objects = MyUserManager()
@@ -60,50 +56,6 @@ class CustomUser(AbstractBaseUser):
             return self.nickname
         return self.username
 
-
-# Cross-database relationsの影響でフォーラムのmodel定義もこちらに配置しないと動かない
-# https://stackoverflow.com/questions/26579231/unable-to-save-with-save-model-using-database-router
-User = CustomUser
-
-
-class Forum(models.Model):
-    id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=False)
-    title = models.CharField(max_length=30, null=False)
-    description = models.CharField(max_length=1500)
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
     class Meta:
-        db_table = 'forums'
-        managed = False
-
-
-class Topic(models.Model):
-    id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=False)
-    forum = models.ForeignKey(Forum, on_delete=False)
-    title = models.CharField(max_length=30, null=False)
-    description = models.CharField(max_length=1500)
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'topics'
-        managed = False
-
-
-class Thread(models.Model):
-    id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=False)
-    topic = models.ForeignKey(Topic, on_delete=False)
-    description = models.CharField(max_length=1500, null=False)
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'threads'
-        managed = False
+        db_table = 'account_customuser'
+        managed = True

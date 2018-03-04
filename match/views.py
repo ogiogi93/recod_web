@@ -1,7 +1,5 @@
-from django.utils import timezone
-
-from competition.models import MatchTeam, Match, Tournament
-from competition.entity.tournament import MatchEntity, TournamentEntity
+from service_api.models.tournaments import MatchTeam, Match
+from match.entity import MatchEntity
 
 
 def get_latest_match():
@@ -10,7 +8,7 @@ def get_latest_match():
     最新試合情報を返す
     :rtype MatchEntity:
     """
-    latest_match_id = Match.objects\
+    latest_match_id = Match.objects \
         .filter(is_active=True, status='completed').order_by('-start_date', '-start_time').first().id
     return MatchEntity(MatchTeam.objects.select_related('team', 'match', 'match__tournament')
                        .filter(match_id=latest_match_id))
@@ -37,30 +35,10 @@ def get_next_matches(limit=3):
     :param limit:
     :rtypeList[MatchEntity]:
     """
-    next_match_ids = Match.objects.values_list('id', flat=True)\
-        .filter(is_active=True, status='pending').order_by('-start_date', '-start_time')[:limit]
+    next_match_ids = Match.objects.values_list('id', flat=True) \
+                         .filter(is_active=True, status='pending').order_by('-start_date', '-start_time')[:limit]
     next_matches = []
     for match_id in next_match_ids:
         next_matches.append(MatchEntity(MatchTeam.objects.select_related('team', 'match', 'match__tournament')
-                                       .filter(match_id=match_id)))
+                                        .filter(match_id=match_id)))
     return next_matches
-
-
-def get_future_tournaments(limit=5):
-    """
-    開催前の大会情報を返す
-    :param int limit:
-    :rtype:
-    """
-    return [TournamentEntity(t)
-            for t in Tournament.objects.filter(is_active=True, date_start__gte=timezone.now())[:limit]]
-
-
-def get_old_tournaments(limit=10):
-    """
-    開催後の大会情報を返す
-    :param limit:
-    :return:
-    """
-    return [TournamentEntity(t)
-            for t in Tournament.objects.filter(is_active=True, date_start__lt=timezone.now())[:limit]]

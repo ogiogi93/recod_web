@@ -39,16 +39,26 @@
                         <!-- START: Future Competition Tab -->
                         {% for future_tournament in future_tournaments %}
                             <div class="nk-blog-post nk-blog-post-border-bottom">
-                                <a href="{% url 'tournament_page' tournament_id=future_tournament.id %}" class="nk-post-img">
-                                    <img src="{{ future_tournament.image }}" alt="{{ future_tournament.name }}"
-                                         width="480" height="240">
-                                    <span class="nk-post-categories">
+                                {% if future_tournament.website %}
+                                    <a href="{{ future_tournament.website }}" class="nk-post-img" target="_blank">
+                                {% else %}
+                                    <a href="{% url 'tournament_page' tournament_id=future_tournament.id %}"
+                                       class="nk-post-img">
+                                {% endif %}
+                                <img src="{{ future_tournament.image }}" alt="{{ future_tournament.name }}"
+                                     width="480" height="240">
+                                <span class="nk-post-categories">
                                             <span class="bg-main-1">開催予定</span>
                             </span>
                                 </a>
                                 <div class="nk-gap-1"></div>
-                                <h2 class="nk-post-title h4"><a
-                                        href="{{ future_tournament.website }}">{{ future_tournament.name }}</a></h2>
+                                <h2 class="nk-post-title h4">
+                                    {% if future_tournament.website %}
+                                        <a href="{{ future_tournament.website }}" target="_blank">{{ future_tournament.name }}</a>
+                                    {% else %}
+                                        <a href="{% url 'tournament_page' tournament_id=future_tournament.id %}">{{ future_tournament.name }}</a>
+                                    {% endif %}
+                                </h2>
                                 <div class="nk-post-date mt-10 mb-10">
                                     <span class="fa fa-calendar"></span> {{ future_tournament.date_start }}
                                     <!--
@@ -56,7 +66,7 @@
                                     -->
                                 </div>
                                 <div class="nk-post-text">
-                                    <p>{{ future_tournament.description }}</p>
+                                    <p>{{ future_tournament.description|safe }}</p>
                                 </div>
                             </div>
                         {% endfor %}
@@ -69,16 +79,26 @@
                         <!-- START: Old Competition Tab -->
                         {% for old_tournament in old_tournaments %}
                             <div class="nk-blog-post nk-blog-post-border-bottom">
-                                <a href="{% url 'tournament_page' tournament_id=old_tournament.id %}" class="nk-post-img">
-                                    <img src="{{ old_tournament.image }}" alt="{{ old_tournament.name }}" width="480"
-                                         height="240">
-                                    <span class="nk-post-categories">
+                                {% if old_tournament.website %}
+                                    <a href="{{ old_tournament.website }}" class="nk-post-img" target="_blank">
+                                {% else %}
+                                    <a href="{% url 'tournament_page' tournament_id=old_tournament.id %}"
+                                       class="nk-post-img">
+                                {% endif %}
+                                <img src="{{ old_tournament.image }}" alt="{{ old_tournament.name }}" width="480"
+                                     height="240">
+                                <span class="nk-post-categories">
                                             <span class="bg-main-4">過去</span>
                             </span>
                                 </a>
                                 <div class="nk-gap-1"></div>
-                                <h2 class="nk-post-title h4"><a
-                                        href="{{ old_tournament.website }}">{{ old_tournament.name }}</a></h2>
+                                <h4 class="nk-post-title h4">
+                                    {% if old_tournament.website %}
+                                    <a href="{{ old_tournament.website }}">{{ old_tournament.name }}</a>
+                                    {% else %}
+                                    <a href="{% url 'tournament_page' tournament_id=old_tournament.id %}">{{ old_tournament.name }}</a>
+                                    {% endif %}
+                                </h4>
                                 <div class="nk-post-date mt-10 mb-10">
                                     <span class="fa fa-calendar"></span> {{ old_tournament.date_start }}
                                     <!--
@@ -86,7 +106,7 @@
                                     -->
                                 </div>
                                 <div class="nk-post-text">
-                                    <p>{{ old_tournament.description }}</p>
+                                    <p>{{ old_tournament.description|safe }}</p>
                                 </div>
                             </div>
                         {% endfor %}

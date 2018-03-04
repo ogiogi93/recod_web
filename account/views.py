@@ -6,7 +6,7 @@ from django.views.decorators.http import require_POST
 from account.entity import UserEntity
 from account.forms import LoginForm, login_form, RegisterForm, EditUserProfile
 from account.models import CustomUser as User
-from competition.repository.tournament import get_next_matches
+from tournament.views import get_next_matches
 
 
 def user_page(request, user_id):

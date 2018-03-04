@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="nk-gap-1"></div>
+        <div class="nk-widget">
+            <h4 class="nk-widget-title">
+                <span class="text-main-1"></span>
+                大会に参加する
+            </h4>
+            <div class="nk-widget-content">
+                <form method="post" class="nk-form" action="{% url 'participate_tournament' team_id=team_id %}">
+                    <div class="form-group">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                    </div>
+                    <button class="btn btn-primary pull-right" type="submit"> 参加 </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="nk-gap-2"></div>
+{% endblock %}

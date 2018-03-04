@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from competition.views import *
+from team.views import secession_team, join_team, belong_teams, upsert_team, team_page, team_list
 
 urlpatterns = [
     url(r'^secession_team/(?P<team_id>\d+)/$', secession_team, name='secession_team'),
