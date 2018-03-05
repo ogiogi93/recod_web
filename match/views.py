@@ -24,6 +24,8 @@ def get_new_matches(limit=3):
     """
     new_match_ids = Match.objects.values_list('id', flat=True) \
                         .filter(is_active=True, status='completed').order_by('-updated_at')[:limit]
+    if not new_match_ids:
+        return None
     new_matches = []
     for match_id in new_match_ids:
         new_matches.append(MatchEntity(MatchTeam.objects.select_related('team', 'match', 'match__tournament')
@@ -39,6 +41,8 @@ def get_next_matches(limit=3):
     """
     next_match_ids = Match.objects.values_list('id', flat=True) \
                          .filter(is_active=True, status='pending').order_by('-start_date', '-start_time')[:limit]
+    if not next_match_ids:
+        return None
     next_matches = []
     for match_id in next_match_ids:
         next_matches.append(MatchEntity(MatchTeam.objects.select_related('team', 'match', 'match__tournament')
