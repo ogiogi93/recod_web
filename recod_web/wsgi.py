@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "recod_web.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "recod_web.settings_staging")
 
 application = get_wsgi_application()
