@@ -31,4 +31,3 @@ def contact(request):
         'login_form': login_form
     })
 
-
