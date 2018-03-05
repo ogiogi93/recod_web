@@ -8,10 +8,12 @@ def get_latest_match():
     最新試合情報を返す
     :rtype MatchEntity:
     """
-    latest_match_id = Match.objects \
-        .filter(is_active=True, status='completed').order_by('-start_date', '-start_time').first().id
-    return MatchEntity(MatchTeam.objects.select_related('team', 'match', 'match__tournament')
-                       .filter(match_id=latest_match_id))
+    latest_match = Match.objects \
+        .filter(is_active=True, status='completed').order_by('-start_date', '-start_time').first()
+    if latest_match:
+        return MatchEntity(MatchTeam.objects.select_related('team', 'match', 'match__tournament')
+                           .filter(match_id=latest_match.id))
+    return None
 
 
 def get_new_matches(limit=3):
