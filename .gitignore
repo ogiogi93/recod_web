@@ -15,3 +15,4 @@ recod_web/database.py
 recod_web/static_settings.py
 .python-version
 template/*
+staticfiles/
