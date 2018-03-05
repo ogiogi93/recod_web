@@ -6,42 +6,62 @@ class MatchEntity:
         self._match_teams = match_teams
 
     def tournament_name(self):
-        return self._match_teams[0].match.tournament.name
+        if self._match_teams:
+            return self._match_teams[0].match.tournament.name
+        return ''
 
     def tournament_image(self):
-        if ENV == 'develop':
-            return 'http://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._match_teams[0].match.tournament.image)
-        return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._match_teams[0].match.tournament.image)
+        if self._match_teams:
+            if ENV == 'develop':
+                return 'http://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._match_teams[0].match.tournament.image)
+            return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._match_teams[0].match.tournament.image)
+        return ''
 
     def status(self):
-        return self._match_teams[0].match.status
+        if self._match_teams:
+            return self._match_teams[0].match.status
+        return ''
 
     def start_date(self):
-        return self._match_teams[0].match.start_date
+        if self._match_teams:
+            return self._match_teams[0].match.start_date
+        return ''
 
     def start_time(self):
-        return self._match_teams[0].match.start_time
+        if self._match_teams:
+            return self._match_teams[0].match.start_time
+        return ''
 
     def home_team_name(self):
-        return self._match_teams[0].team.name
+        if self._match_teams:
+            return self._match_teams[0].team.name
+        return ''
 
     def home_team_image(self):
-        if ENV == 'develop':
-            return 'http://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._match_teams[0].team.image)
-        return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._match_teams[0].team.image)
+        if self._match_teams:
+            if ENV == 'develop':
+                return 'http://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._match_teams[0].team.image)
+            return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._match_teams[0].team.image)
+        return ''
 
     def home_team_score(self):
-        return self._match_teams[0].score
+        if self._match_teams:
+            return self._match_teams[0].score
+        return ''
 
     def away_team_name(self):
-        return self._match_teams[1].team.name
+        if self._match_teams:
+            return self._match_teams[1].team.name
+        return ''
 
     def away_team_image(self):
-        if ENV == 'develop':
-            return 'http://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._match_teams[1].team.image)
-        return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._match_teams[1].team.image)
+        if self._match_teams:
+            if ENV == 'develop':
+                return 'http://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._match_teams[1].team.image)
+            return 'https://' + AWS_S3_CUSTOM_DOMAIN + '/media/' + str(self._match_teams[1].team.image)
+        return ''
 
     def away_team_score(self):
-        return self._match_teams[1].score
-
-
+        if self._match_teams:
+            return self._match_teams[1].score
+        return ''
